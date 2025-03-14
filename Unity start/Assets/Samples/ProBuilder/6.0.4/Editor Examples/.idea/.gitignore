@@ -3,15 +3,11 @@
 /workspace.xml
 # Rider에서 무시된 파일
 /modules.xml
+/.idea.Editor Examples.iml
 /projectSettingsUpdater.xml
-/.idea.MA-4.iml
 /contentModel.xml
 # 에디터 기반 HTTP 클라이언트 요청
 /httpRequests/
 # Datasource local storage ignored files
 /dataSources/
 /dataSources.local.xml
-# 라이브러리 파일 제외
-/Library/
-/node_modules/
-*.log
