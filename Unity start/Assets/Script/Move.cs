@@ -17,7 +17,7 @@ public class Move : MonoBehaviour
     void Update()
     {
   
-        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow))
         {
             StartCoroutine(move1());
         }
