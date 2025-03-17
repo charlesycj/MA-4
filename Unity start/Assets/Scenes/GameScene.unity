@@ -566,7 +566,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 7461918222327965934, guid: 470a2548d731342469d878c5c8edc8cb, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -588,7 +589,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!81 &1025248498
 AudioListener:
   m_ObjectHideFlags: 0
@@ -674,7 +675,7 @@ GameObject:
   - component: {fileID: 1223013348}
   - component: {fileID: 1223013347}
   m_Layer: 0
-  m_Name: GarpetPlace
+  m_Name: GarpetArrangement
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
