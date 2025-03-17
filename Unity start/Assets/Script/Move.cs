@@ -7,17 +7,12 @@ public class Move : MonoBehaviour
     public float speed = 0.001f; // 이동 속도
     
     [SerializeField] private int dice = 1;
-
-    void Start()
-    {
-        StartCoroutine(move1());
-        Debug.Log(Player.forward);
-    }
+    
    
     void Update()
     {
   
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
         {
             StartCoroutine(move1());
         }
@@ -26,7 +21,12 @@ public class Move : MonoBehaviour
 
     private IEnumerator move1()
     {
-        for (int i = 0; i < dice; i++)
+        //Dice 만들기
+        int[] Dice = { 1, 2, 2, 3, 3, 4 };
+        dice = Random.Range(0,6);
+        Debug.Log("나온 주사위 수 :" + Dice[dice]);
+        
+        for (int i = 0; i < Dice[dice]; i++)
         {
             yield return StartCoroutine(UpMove());
             yield return StartCoroutine(ExMove());
