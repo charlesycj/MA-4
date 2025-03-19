@@ -23,191 +23,138 @@ public class CarpetArrangement : MonoBehaviour
             CheckA = false;
             CheckD = false;
 
-            // 카펫을 두 개로 나누어 배치하는 작업
-            Vector3 carpetPosition1 = player.position + new Vector3(0, 0, 1); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(0, 0, 2); // 두 번째 카펫의 위치
+            // 로컬 기준으로 플레이어 앞쪽에 카펫 배치
+            Vector3 carpetPosition1 = player.TransformPoint(Vector3.forward); // 첫 번째 카펫
+            Vector3 carpetPosition2 = player.TransformPoint(Vector3.forward * 2); // 두 번째 카펫
 
             // 카펫 클론 생성
-            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, Quaternion.identity);
-            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, Quaternion.identity);
+            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, player.rotation);
+            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, player.rotation);
 
             // 클론의 투명도 설정
             SetTransparency(carpetClone1, 0.5f);
             SetTransparency(carpetClone2, 0.5f);
 
-            Arrangement = true; // 카펫 배치 상태 변경
-
-            // W 키 입력 후에만 Q와 E 입력 가능하도록 설정
+            Arrangement = true;
             CheckW = true;
         }
         else if (Input.GetKeyDown(KeyCode.W) && Arrangement)
         {
             CheckA = false;
             CheckD = false;
-            // 카펫이 이미 배치되어 있으면 위치만 업데이트
-            Vector3 carpetPosition1 = player.position + new Vector3(0, 0, 1); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(0, 0, 2); // 두 번째 카펫의 위치
 
-            carpetClone1.transform.position = carpetPosition1;
-            carpetClone2.transform.position = carpetPosition2;
+            // 카펫 위치 업데이트 (플레이어 앞쪽)
+            carpetClone1.transform.position = player.TransformPoint(Vector3.forward);
+            carpetClone2.transform.position = player.TransformPoint(Vector3.forward * 2);
+
+            CheckW = true;
         }
 
-        // W 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
         if (CheckW)
         {
-            CheckA = false;
-            CheckD = false;
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                // W 키에 따른 Q 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(0, 0, 1); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(-1, 0, 1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.forward);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.forward + Vector3.left);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // W 키에 따른 E 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(0, 0, 1); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(1, 0, 1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.forward);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.forward + Vector3.right);
             }
         }
 
-        // A 키 눌렀을 때 카펫을 두 개로 나누어 배치 (처음에만)
+        // A 키 눌렀을 때 카펫을 왼쪽으로 배치
         if (Input.GetKeyDown(KeyCode.A) && !Arrangement)
         {
             CheckW = false;
             CheckD = false;
 
-            // 카펫을 두 개로 나누어 배치하는 작업
-            Vector3 carpetPosition1 = player.position + new Vector3(-1, 0, 0); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(-2, 0, 0); // 두 번째 카펫의 위치
+            Vector3 carpetPosition1 = player.TransformPoint(Vector3.left);
+            Vector3 carpetPosition2 = player.TransformPoint(Vector3.left * 2);
 
-            // 카펫 클론 생성
-            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, Quaternion.identity);
-            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, Quaternion.identity);
+            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, player.rotation);
+            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, player.rotation);
 
-            // 클론의 투명도 설정
             SetTransparency(carpetClone1, 0.5f);
             SetTransparency(carpetClone2, 0.5f);
 
-            Arrangement = true; // 카펫 배치 상태 변경
-
-            // A 키 입력 후에만 Q와 E 입력 가능하도록 설정
+            Arrangement = true;
             CheckA = true;
         }
         else if (Input.GetKeyDown(KeyCode.A) && Arrangement)
         {
             CheckW = false;
             CheckD = false;
-            // 카펫이 이미 배치되어 있으면 위치만 업데이트
-            Vector3 carpetPosition1 = player.position + new Vector3(-1, 0, 0); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(-2, 0, 0); // 두 번째 카펫의 위치
 
-            carpetClone1.transform.position = carpetPosition1;
-            carpetClone2.transform.position = carpetPosition2;
+            carpetClone1.transform.position = player.TransformPoint(Vector3.left);
+            carpetClone2.transform.position = player.TransformPoint(Vector3.left * 2);
+
             CheckA = true;
         }
 
-        
-        // A 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
         if (CheckA)
         {
-           
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                // W 키에 따른 Q 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(-1, 0, 0); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(-1, 0, -1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.left);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.left + Vector3.back);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // W 키에 따른 E 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(-1, 0, 0); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(-1, 0, 1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.left);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.left + Vector3.forward);
             }
         }
 
-        // D 키 눌렀을 때 카펫을 두 개로 나누어 배치 (처음에만)
+        // D 키 눌렀을 때 카펫을 오른쪽으로 배치
         if (Input.GetKeyDown(KeyCode.D) && !Arrangement)
         {
             CheckW = false;
             CheckA = false;
 
-            // 카펫을 두 개로 나누어 배치하는 작업
-            Vector3 carpetPosition1 = player.position + new Vector3(1, 0, 0); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(2, 0, 0); // 두 번째 카펫의 위치
+            Vector3 carpetPosition1 = player.TransformPoint(Vector3.right);
+            Vector3 carpetPosition2 = player.TransformPoint(Vector3.right * 2);
 
-            // 카펫 클론 생성
-            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, Quaternion.identity);
-            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, Quaternion.identity);
+            carpetClone1 = Instantiate(Carpet1_Player1, carpetPosition1, player.rotation);
+            carpetClone2 = Instantiate(Carpet2_Player1, carpetPosition2, player.rotation);
 
-            // 클론의 투명도 설정
             SetTransparency(carpetClone1, 0.5f);
             SetTransparency(carpetClone2, 0.5f);
 
-            Arrangement = true; // 카펫 배치 상태 변경
-
-            // D 키 입력 후에만 Q와 E 입력 가능하도록 설정
+            Arrangement = true;
             CheckD = true;
         }
         else if (Input.GetKeyDown(KeyCode.D) && Arrangement)
         {
             CheckW = false;
             CheckA = false;
-            // 카펫이 이미 배치되어 있으면 위치만 업데이트
-            Vector3 carpetPosition1 = player.position + new Vector3(1, 0, 0); // 첫 번째 카펫의 위치
-            Vector3 carpetPosition2 = player.position + new Vector3(2, 0, 0); // 두 번째 카펫의 위치
 
-            carpetClone1.transform.position = carpetPosition1;
-            carpetClone2.transform.position = carpetPosition2;
+            carpetClone1.transform.position = player.TransformPoint(Vector3.right);
+            carpetClone2.transform.position = player.TransformPoint(Vector3.right * 2);
+
             CheckD = true;
         }
 
-        // D 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
         if (CheckD)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                // D 키에 따른 Q 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(1, 0, 0); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(1, 0, 1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.right);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.right + Vector3.forward);
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                // D 키에 따른 E 위치로 이동
-                Vector3 carpetPosition1 = player.position + new Vector3(1, 0, 0); // 첫 번째 카펫의 위치
-                Vector3 carpetPosition2 = player.position + new Vector3(1, 0, -1); // 두 번째 카펫의 위치
-
-                // 기존 카펫 위치만 이동
-                carpetClone1.transform.position = carpetPosition1;
-                carpetClone2.transform.position = carpetPosition2;
+                carpetClone1.transform.position = player.TransformPoint(Vector3.right);
+                carpetClone2.transform.position = player.TransformPoint(Vector3.right + Vector3.back);
             }
         }
     }
 
-    // 투명도를 설정하는 함수 (알파값을 변경)
+    // 투명도를 설정하는 함수
     void SetTransparency(GameObject carpet, float alphaValue)
     {
         if (carpet == null) return;
