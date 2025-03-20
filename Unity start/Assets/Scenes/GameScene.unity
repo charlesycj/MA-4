@@ -762,13 +762,13 @@ MonoBehaviour:
   - {fileID: 1883563046}
   - {fileID: 1883563046}
   Carpet1_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
-  Carpet2_Player1: {fileID: 3087150211312123824, guid: 6c765bc7a338dcd4c8565c13ae13e0d1, type: 3}
+  Carpet2_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
   Carpet1_Player2: {fileID: 3087150211312123824, guid: 4c9dfe64beee7c64988d3fdce347a598, type: 3}
-  Carpet2_Player2: {fileID: 1742095513318346906, guid: cfe328744b71e7147b754e8825f10bc4, type: 3}
+  Carpet2_Player2: {fileID: 3087150211312123824, guid: 4c9dfe64beee7c64988d3fdce347a598, type: 3}
   Carpet1_Player3: {fileID: 1742095513318346906, guid: 0c2a99c278b756941a0ab78d1e2de95a, type: 3}
-  Carpet2_Player3: {fileID: 1742095513318346906, guid: ea67060771a56bd4ebd433e265bbf32e, type: 3}
+  Carpet2_Player3: {fileID: 1742095513318346906, guid: 0c2a99c278b756941a0ab78d1e2de95a, type: 3}
   Carpet1_Player4: {fileID: 1742095513318346906, guid: 8e6e9fe22bf31e5498f55844e84260b8, type: 3}
-  Carpet2_Player4: {fileID: 1742095513318346906, guid: 8bcaea343c7200741adb40ab3cc95a58, type: 3}
+  Carpet2_Player4: {fileID: 1742095513318346906, guid: 8e6e9fe22bf31e5498f55844e84260b8, type: 3}
 --- !u!4 &1223013348
 Transform:
   m_ObjectHideFlags: 0

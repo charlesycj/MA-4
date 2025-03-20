@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - CarpetP1
+  - CarpetP2
+  - CarpetP3
+  - CarpetP4
   layers:
   - Default
   - TransparentFX
