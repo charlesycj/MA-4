@@ -232,12 +232,7 @@ public class CarpetArrangement : MonoBehaviour
     // 카펫 설치 완료 후 위치를 플레이어 로컬 좌표에 맞게 수정
     void CompleteCarpetArrangement(Transform player)
     {
-        // 로컬 좌표를 월드 좌표로 변환하여 다시 카펫의 위치 수정
-        Vector3 carpetPosition1 = player.TransformPoint(new Vector3(0, 0, 1)); // 기본 위치 예시
-        Vector3 carpetPosition2 = player.TransformPoint(new Vector3(0, 0, 2)); // 기본 위치 예시
-
-        carpetClones[currentPlayerIndex][0].transform.position = carpetPosition1;
-        carpetClones[currentPlayerIndex][1].transform.position = carpetPosition2;
+       
 
         SetTransparency(carpetClones[currentPlayerIndex][0], 1.0f);
         SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
