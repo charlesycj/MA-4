@@ -7,11 +7,11 @@ public class Direction : MonoBehaviour
     private float dirspeed = 100f;
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
         {
             turnRight();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
         {
             turnLeft();
         }
@@ -37,7 +37,7 @@ public class Direction : MonoBehaviour
 
     private IEnumerator GO()
     {
-        Quaternion targetRot =  Quaternion.Euler(0, dir * 90, 0);
+        Quaternion targetRot =  Quaternion.Euler(0,  dir * 90, 0);
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, dirspeed * Time.deltaTime);

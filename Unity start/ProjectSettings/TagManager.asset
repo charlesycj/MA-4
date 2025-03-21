@@ -4,10 +4,11 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - CarpetP1
-  - CarpetP2
-  - CarpetP3
-  - CarpetP4
+  - TeleportTile
+  - LeftVConor
+  - RightVConor
+  - LeftConor
+  - RightConor
   layers:
   - Default
   - TransparentFX
@@ -45,5 +46,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: New Layer 1
+    uniqueID: 1073701527
+    locked: 0
   m_RenderingLayers:
   - Default
+  - Light Layer 1
+  - Light Layer 2
+  - Light Layer 3
+  - Light Layer 4
+  - Light Layer 5
+  - Light Layer 6
+  - Light Layer 7
