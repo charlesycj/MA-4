@@ -1,0 +1,19 @@
+fileFormatVersion: 2
+guid: 87b999d392cf9b44c9e1d97b875d81a0
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Carpet1_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
+  - Carpet2_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
+  - Carpet1_Player2: {fileID: 3087150211312123824, guid: 4c9dfe64beee7c64988d3fdce347a598, type: 3}
+  - Carpet2_Player2: {fileID: 3087150211312123824, guid: 4c9dfe64beee7c64988d3fdce347a598, type: 3}
+  - Carpet1_Player3: {fileID: 1742095513318346906, guid: 0c2a99c278b756941a0ab78d1e2de95a, type: 3}
+  - Carpet2_Player3: {fileID: 1742095513318346906, guid: 0c2a99c278b756941a0ab78d1e2de95a, type: 3}
+  - Carpet1_Player4: {fileID: 1742095513318346906, guid: 8e6e9fe22bf31e5498f55844e84260b8, type: 3}
+  - Carpet2_Player4: {fileID: 1742095513318346906, guid: 8e6e9fe22bf31e5498f55844e84260b8, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
