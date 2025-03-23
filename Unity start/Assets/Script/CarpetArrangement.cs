@@ -233,9 +233,23 @@ public class CarpetArrangement : MonoBehaviour
     // 카펫 설치 완료 후 위치를 플레이어 로컬 좌표에 맞게 수정
     void CompleteCarpetArrangement(Transform player)
     {
-        // 기존 카펫이 있으면 제거
-        RemoveExistingCarpets(carpetClones[currentPlayerIndex][0].transform.position);
-        RemoveExistingCarpets(carpetClones[currentPlayerIndex][1].transform.position);
+        Vector3 pos1 = carpetClones[currentPlayerIndex][0].transform.position;
+        Vector3 pos2 = carpetClones[currentPlayerIndex][1].transform.position;
+
+        // 각각의 칸이 이미 불투명한(배치된) 카펫과 겹치는지 확인
+        bool carpet1Blocked = IsCarpetAlreadyPlaced(pos1);
+        bool carpet2Blocked = IsCarpetAlreadyPlaced(pos2);
+
+        // **두 칸 모두 기존 불투명한 카펫과 겹칠 때만 설치 불가**
+        if (carpet1Blocked && carpet2Blocked)
+        {
+            Debug.Log("두 개의 카펫이 모두 기존 카펫과 겹쳐서 설치할 수 없습니다!");
+            return;
+        }
+
+        // 기존 청사진 카펫 제거 후 배치 완료
+        RemoveExistingCarpets(pos1);
+        RemoveExistingCarpets(pos2);
 
         SetTransparency(carpetClones[currentPlayerIndex][0], 1.0f);
         SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
@@ -244,13 +258,50 @@ public class CarpetArrangement : MonoBehaviour
         currentPlayerIndex = (currentPlayerIndex + 1) % 4;
         playerArrangements[currentPlayerIndex] = false;
     }
+
     
+    // 현재 위치에 기존 카펫이 있는지 확인하는 함수
+    // 해당 위치에 불투명한(완전히 설치된) 카펫이 있는지 확인
+    bool IsCarpetAlreadyPlaced(Vector3 position)
+    {
+        Collider[] hitColliders = Physics.OverlapBox(position, new Vector3(0.45f, 0.1f, 0.45f));
+        foreach (Collider hitCollider in hitColliders)
+        {
+            // 카펫 태그 확인
+            if (hitCollider.CompareTag("CarpetP1") ||
+                hitCollider.CompareTag("CarpetP2") ||
+                hitCollider.CompareTag("CarpetP3") ||
+                hitCollider.CompareTag("CarpetP4"))
+            {
+                // Renderer에서 alpha 값 확인
+                Renderer renderer = hitCollider.GetComponent<Renderer>();
+                if (renderer != null && renderer.material.HasProperty("_Color"))
+                {
+                    Color color = renderer.material.color;
+                    if (color.a == 1.0f) // 완전히 불투명한 경우
+                    {
+                        return true; // 설치 불가
+                    }
+                }
+            }
+        }
+        return false; // 설치 가능
+    }
     //만약 카펫이 배치되어있다면 삭제
     void RemoveExistingCarpets(Vector3 position)
     {
         Collider[] hitColliders = Physics.OverlapBox(position, new Vector3(0.5f, 0.5f, 0.5f));
         foreach (Collider hitCollider in hitColliders)
         {
+            // 태그가 CarpetP1, CarpetP2, CarpetP3, CarpetP4 중 하나인지 확인
+            if (!(hitCollider.CompareTag("CarpetP1") || 
+                  hitCollider.CompareTag("CarpetP2") || 
+                  hitCollider.CompareTag("CarpetP3") || 
+                  hitCollider.CompareTag("CarpetP4")))
+            {
+                continue;
+            }
+
             Renderer carpetRenderer = hitCollider.GetComponent<Renderer>();
             if (carpetRenderer == null) continue; // Renderer가 없으면 건너뛰기
 
