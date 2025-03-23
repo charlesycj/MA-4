@@ -46,7 +46,7 @@ public class CarpetArrangement : MonoBehaviour
         // 플레이어가 W 키를 눌렀을 때 카펫을 배치
         if (Input.GetKeyDown(KeyCode.W) && !Arrangement)
         {
-            HandleCarpetArrangement(KeyCode.W, player, new Vector3(0, 0, 1), new Vector3(0, 0, 2));
+            HandleCarpetArrangement(KeyCode.W, player, new Vector3(0, 0.3f, 1), new Vector3(0, 0.3f, 2f));
             CheckW = true;
             CheckA = false;
             CheckD = false;
@@ -54,7 +54,7 @@ public class CarpetArrangement : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.W) && Arrangement)
         {
-            UpdateCarpetPosition(player, new Vector3(0, 0, 1), new Vector3(0, 0, 2));
+            HandleCarpetArrangement(KeyCode.W, player, new Vector3(0, 0.3f, 1f), new Vector3(0, 0.3f, 2f));
             CheckW = true;
             CheckA = false;
             CheckD = false;
@@ -66,19 +66,19 @@ public class CarpetArrangement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UpdateCarpetPosition(player, new Vector3(0, 0, 1), new Vector3(-1, 0, 1));
+                UpdateCarpetPosition(player, new Vector3(0, 0.3f, 1), new Vector3(-1, 0.3f, 1));
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UpdateCarpetPosition(player, new Vector3(0, 0, 1), new Vector3(1, 0, 1));
+                UpdateCarpetPosition(player, new Vector3(0,0.3f, 1), new Vector3(1,0.3f, 1));
             }
         }
 
         // A 키 눌렀을 때 처리 (W와 비슷)
         if (Input.GetKeyDown(KeyCode.A) && !Arrangement)
         {
-            HandleCarpetArrangement(KeyCode.A, player, new Vector3(-1, 0, 0), new Vector3(-2, 0, 0));
+            HandleCarpetArrangement(KeyCode.A, player, new Vector3(-1, 0.3f, 0), new Vector3(-2, 0.3f, 0));
             CheckW = false;
             CheckA = true;
             CheckD = false;
@@ -86,7 +86,7 @@ public class CarpetArrangement : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.A) && Arrangement)
         {
-            UpdateCarpetPosition(player, new Vector3(-1, 0, 0), new Vector3(-2, 0, 0));
+            UpdateCarpetPosition(player, new Vector3(-1, 0.3f, 0), new Vector3(-2, 0.3f, 0));
             CheckW = false;
             CheckA = true;
             CheckD = false;
@@ -98,19 +98,19 @@ public class CarpetArrangement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UpdateCarpetPosition(player, new Vector3(-1, 0, 0), new Vector3(-1, 0, -1));
+                UpdateCarpetPosition(player, new Vector3(-1, 0.3f, 0), new Vector3(-1, 0.3f, -1));
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UpdateCarpetPosition(player, new Vector3(-1, 0, 0), new Vector3(-1, 0, 1));
+                UpdateCarpetPosition(player, new Vector3(-1, 0.3f, 0), new Vector3(-1, 0.3f, 1));
             }
         }
 
         // D 키 눌렀을 때 처리 (W와 비슷)
         if (Input.GetKeyDown(KeyCode.D) && !Arrangement)
         {
-            HandleCarpetArrangement(KeyCode.D, player, new Vector3(1, 0, 0), new Vector3(2, 0, 0));
+            HandleCarpetArrangement(KeyCode.D, player, new Vector3(1, 0.3f, 0), new Vector3(2, 0.3f, 0));
             CheckW = false;
             CheckA = false;
             CheckD = true;
@@ -118,7 +118,7 @@ public class CarpetArrangement : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.D) && Arrangement)
         {
-            UpdateCarpetPosition(player, new Vector3(1, 0, 0), new Vector3(2, 0, 0));
+            UpdateCarpetPosition(player, new Vector3(1, 0.3f, 0), new Vector3(2, 0.3f, 0));
             CheckW = false;
             CheckA = false;
             CheckD = true;
@@ -130,18 +130,18 @@ public class CarpetArrangement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UpdateCarpetPosition(player, new Vector3(1, 0, 0), new Vector3(1, 0, 1));
+                UpdateCarpetPosition(player, new Vector3(1, 0.3f, 0), new Vector3(1, 0.3f, 1));
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UpdateCarpetPosition(player, new Vector3(1, 0, 0), new Vector3(1, 0, -1));
+                UpdateCarpetPosition(player, new Vector3(1, 0.3f, 0), new Vector3(1, 0.3f, -1));
             }
         }
         // S 키 눌렀을 때 처리
         if (Input.GetKeyDown(KeyCode.S) && !Arrangement)
         {
-            HandleCarpetArrangement(KeyCode.S, player, new Vector3(0, 0, -1), new Vector3(0, 0, -2));
+            HandleCarpetArrangement(KeyCode.S, player, new Vector3(0, 0.3f, -1), new Vector3(0, 0.3f, -2));
             CheckW = false;
             CheckA = false;
             CheckD = false;
@@ -149,7 +149,7 @@ public class CarpetArrangement : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S) && Arrangement)
         {
-            UpdateCarpetPosition(player, new Vector3(0, 0, -1), new Vector3(0, 0, -2));
+            UpdateCarpetPosition(player, new Vector3(0, 0.3f, -1), new Vector3(0, 0.3f, -2));
             CheckW = false;
             CheckA = false;
             CheckD = false;
@@ -161,18 +161,18 @@ public class CarpetArrangement : MonoBehaviour
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
-                UpdateCarpetPosition(player, new Vector3(0, 0, -1), new Vector3(1, 0, -1));
+                UpdateCarpetPosition(player, new Vector3(0, 0.3f, -1f), new Vector3(1, 0.3f, -1f));
             }
 
             if (Input.GetKeyDown(KeyCode.E))
             {
-                UpdateCarpetPosition(player, new Vector3(0, 0, -1), new Vector3(-1, 0, -1));
+                UpdateCarpetPosition(player, new Vector3(0, 0.3f, -1f), new Vector3(-1, 0.3f, -1f));
             }
         }
         // R 키로 턴을 끝내고, 카펫을 플레이어의 로컬 좌표로 수정 후, 다음 플레이어로 넘기기
         if (Input.GetKeyDown(KeyCode.R) && Arrangement)
         {
-            Debug.Log("카펫 설치 완료");
+           
             CompleteCarpetArrangement(player);
         }
     }
@@ -180,7 +180,12 @@ public class CarpetArrangement : MonoBehaviour
     // 카펫의 위치 업데이트 (로컬 좌표로 변경)
     void UpdateCarpetPosition(Transform player, Vector3 position1, Vector3 position2)
     {
-        // 로컬 좌표를 월드 좌표로 변환
+        // 만약 carpetClones가 생성되지 않았다면 HandleCarpetArrangement 먼저 실행
+        if (carpetClones[currentPlayerIndex][0] == null || carpetClones[currentPlayerIndex][1] == null)
+        {
+            HandleCarpetArrangement(KeyCode.None, player, position1, position2);
+        }
+
         Vector3 carpetPosition1 = player.TransformPoint(position1);
         Vector3 carpetPosition2 = player.TransformPoint(position2);
 
@@ -191,16 +196,21 @@ public class CarpetArrangement : MonoBehaviour
         SetTransparency(carpetClones[currentPlayerIndex][1], 0.5f);
     }
 
-    // 카펫 배치 및 클론 생성 (로컬 좌표로 변경)
+    // 카펫 청사진 생성 (로컬 좌표로 변경)
     void HandleCarpetArrangement(KeyCode key, Transform player, Vector3 position1, Vector3 position2)
     {
-        if (playerArrangements[currentPlayerIndex]) return;
+        if (playerArrangements[currentPlayerIndex] || Arrangement) return; // 이미 배치했으면 종료
 
-        // 로컬 좌표를 월드 좌표로 변환
         Vector3 carpetPosition1 = player.TransformPoint(position1);
         Vector3 carpetPosition2 = player.TransformPoint(position2);
 
-        // 각 플레이어에 맞는 카펫 프리팹을 사용하여 카펫을 배치
+        // 이미 청사진 카펫이 있다면 위치만 업데이트
+        if (carpetClones[currentPlayerIndex][0] != null && carpetClones[currentPlayerIndex][1] != null)
+        {
+            carpetClones[currentPlayerIndex][0].transform.position = carpetPosition1;
+            carpetClones[currentPlayerIndex][1].transform.position = carpetPosition2;
+        }
+        else
         switch (currentPlayerIndex)
         {
             case 0:
@@ -224,10 +234,7 @@ public class CarpetArrangement : MonoBehaviour
         SetTransparency(carpetClones[currentPlayerIndex][0], 0.5f);
         SetTransparency(carpetClones[currentPlayerIndex][1], 0.5f);
 
-        Arrangement = true;
-        CheckW = false;
-        CheckA = false;
-        CheckD = false;
+        Arrangement = true; // 한 턴에 한 번만 배치 가능하도록 설정
     }
 
     // 카펫 설치 완료 후 위치를 플레이어 로컬 좌표에 맞게 수정
@@ -235,7 +242,7 @@ public class CarpetArrangement : MonoBehaviour
     {
         Vector3 pos1 = carpetClones[currentPlayerIndex][0].transform.position;
         Vector3 pos2 = carpetClones[currentPlayerIndex][1].transform.position;
-
+        
         // 각각의 칸이 이미 불투명한(배치된) 카펫과 겹치는지 확인
         bool carpet1Blocked = IsCarpetAlreadyPlaced(pos1);
         bool carpet2Blocked = IsCarpetAlreadyPlaced(pos2);
@@ -251,16 +258,24 @@ public class CarpetArrangement : MonoBehaviour
         RemoveExistingCarpets(pos1);
         RemoveExistingCarpets(pos2);
 
+        // 카펫 1과 2의 y 좌표를 0.1f로 수정
+        pos1.y = 0.1f;
+        pos2.y = 0.1f;
+
+        // 새로운 위치로 카펫을 배치
+        carpetClones[currentPlayerIndex][0].transform.position = pos1;
+        carpetClones[currentPlayerIndex][1].transform.position = pos2;
+        
+        //불투명하게 변경(설치완료)
         SetTransparency(carpetClones[currentPlayerIndex][0], 1.0f);
         SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
-
+        
+        
         Arrangement = false;
         currentPlayerIndex = (currentPlayerIndex + 1) % 4;
         playerArrangements[currentPlayerIndex] = false;
     }
-
     
-    // 현재 위치에 기존 카펫이 있는지 확인하는 함수
     // 해당 위치에 불투명한(완전히 설치된) 카펫이 있는지 확인
     bool IsCarpetAlreadyPlaced(Vector3 position)
     {

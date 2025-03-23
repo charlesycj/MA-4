@@ -652,6 +652,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 00ffa9eee77e95b46bf40e9a46b366cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &732793262 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
+  m_PrefabInstance: {fileID: 1037971935398255783}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &774027954 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 93527573578042471, guid: b034836bca1047843872c1c29c17d1cc, type: 3}
@@ -861,10 +866,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 732793262}
+  - {fileID: 732793262}
+  - {fileID: 732793262}
+  - {fileID: 732793262}
   Carpet1_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
   Carpet2_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}
   Carpet1_Player2: {fileID: 3087150211312123824, guid: 4c9dfe64beee7c64988d3fdce347a598, type: 3}
