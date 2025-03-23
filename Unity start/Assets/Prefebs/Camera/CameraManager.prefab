@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TopViewCamera: {fileID: 6920774331182810416, guid: 47e9f3bb4212dc3488d8f37545a0f610, type: 3}
-  BackViewCamera: {fileID: 0}
+  BackViewCamera: {fileID: 7507282751974628703, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}

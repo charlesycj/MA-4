@@ -10,7 +10,7 @@ public class Move : MonoBehaviour
     public float speed = 0.001f; // 이동 속도
     
     [SerializeField] private int dice = 1;
-    public float dirspeed = 2f;
+    public float dirspeed = 1000f;
     public Collider triggerCollider;
     public void OnButtonClick()
     {
@@ -40,7 +40,7 @@ public class Move : MonoBehaviour
         }
         if (other.CompareTag("RightConor"))
         {
-            Debug.Log("좌측");
+            Debug.Log("우측");
             triggerCollider.isTrigger = false;
             StartCoroutine(Conormove2(90f));
             
@@ -87,7 +87,7 @@ public class Move : MonoBehaviour
     {
         Debug.Log(2);
         Quaternion target = transform.rotation * Quaternion.Euler(0f, angle, 0f);
-        while (Quaternion.Angle(transform.rotation, target) > 0.1f)
+        while (Quaternion.Angle(transform.rotation, target) > 1f)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, target, dirspeed * Time.deltaTime);
             yield return null;
@@ -113,38 +113,38 @@ public class Move : MonoBehaviour
 
     private IEnumerator UpMove()
     {
-        Vector3 startPos = Player.position;
+        Vector3 startPos = transform.position;
         Vector3 target1 = startPos + new Vector3(0, 1, 0);
-        while (Vector3.Distance(Player.position, target1) > 0.005f)
+        while (Vector3.Distance(transform.position, target1) > 0.005f)
         {
-            Player.position = Vector3.MoveTowards(Player.position, target1, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target1, speed * Time.deltaTime);
             yield return  null;
         }
-        Player.position = target1;
+        transform.position = target1;
        
     }
     private IEnumerator ExMove()
     {
         Debug.Log("전진 시작");
-        Vector3 startPos = Player.position;
-        Vector3 target = startPos + transform.forward * 2;
-        while (Vector3.Distance(Player.position, target) > 0.005f)
+        Vector3 startPos = transform.position;
+        Vector3 target = startPos + transform.forward;
+        while (Vector3.Distance(transform.position, target) > 0.005f)
         {
-            Player.position = Vector3.MoveTowards(Player.position, target, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
             yield return  null;
         }
-        Player.position = target;
+        transform.position = target;
     }
     private IEnumerator Downmove()
     {
-        Vector3 startPos = Player.position;
+        Vector3 startPos = transform.position;
         Vector3 target2 = startPos + new Vector3(0, -1, 0);
         while (Vector3.Distance(Player.position, target2) > 0.005f)
         {
-            Player.position = Vector3.MoveTowards(Player.position, target2, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target2, speed * Time.deltaTime);
             yield return null;
         }
-        Player.position = target2;
+        transform.position = target2;
        
     }
 }

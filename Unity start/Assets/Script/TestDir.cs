@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class TestDir : MonoBehaviour
 {
-    private float dirspeed = 100f;
+    private float dirspeed = 1000f;
 
     void Update()
     {
