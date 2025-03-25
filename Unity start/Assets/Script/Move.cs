@@ -13,17 +13,27 @@ public class Move : MonoBehaviour
     private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
-    public void OnButtonClick()
+    public void DiceInput(int dice)
     {
         button.interactable = false;
-        //Dice 만들기
-        int[] Dice = { 1, 2, 2, 3, 3, 4 };
-        int dice = Random.Range(0,6);
-        Debug.Log("나온 주사위"+Dice[dice]);
-        currentCoroutine = StartCoroutine(MovePlayer(Dice[dice]));
+        currentCoroutine = StartCoroutine(MovePlayer(dice));
         isMoving = true;
     }
-
+    private IEnumerator MovePlayer(int dices)
+    {
+        remainCount = dices;
+        for (int i = 0; i < dices; i++)
+        {
+            yield return StartCoroutine(UpMove());
+            yield return StartCoroutine(ExMove());
+            yield return StartCoroutine(Downmove());
+            remainCount--; 
+            Debug.Log("남은 주사위 수: "+remainCount);
+        }
+        isMoving = false;
+        button.interactable = true;
+    }
+    
     private void StartMovement()
     {
         remainCount--;
@@ -84,20 +94,6 @@ public class Move : MonoBehaviour
         
     }
 
-    private IEnumerator MovePlayer(int dices)
-    {
-        remainCount = dices;
-        for (int i = 0; i < dices; i++)
-        {
-            yield return StartCoroutine(UpMove());
-            yield return StartCoroutine(ExMove());
-            yield return StartCoroutine(Downmove());
-            remainCount--; 
-            Debug.Log("남은 주사위 수: "+remainCount);
-        }
-        isMoving = false;
-        button.interactable = true;
-    }
 
     private IEnumerator Conormove(float angle)
     {
