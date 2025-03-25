@@ -199,9 +199,6 @@ public class CarpetArrangement : MonoBehaviour
     // 카펫 설치 완료 후 위치를 플레이어 로컬 좌표에 맞게 수정
    public void CompleteCarpetArrangement(Transform player)
     {
-        SetTransparency(carpetClones[currentPlayerIndex][0], 1.0f);
-        SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
-        
         // 카펫의 월드 좌표를 얻어옴
         Vector3 pos0 = carpetClones[currentPlayerIndex][0].transform.position;
         Vector3 pos1 = carpetClones[currentPlayerIndex][1].transform.position;
@@ -212,6 +209,14 @@ public class CarpetArrangement : MonoBehaviour
         int x1 = Mathf.RoundToInt(pos1.x + 3);
         int z1 = Mathf.RoundToInt(pos1.z + 3);
 
+        
+        // 설치 가능한 범위는 예시로 (0,7) 내부라고 가정 (즉, 1~6만 허용)
+ 
+         if ((x0 < 0 || x0 >= 7 || z0 < 0 || z0 >= 7) || (x1 < 0 || x1 >= 7 || z1 < 0 || z1 >= 7))
+        {
+            Debug.Log("카펫두개의 설치 범위를 벗어났습니다. 설치할 수 없습니다.");
+            return;
+        }
         // 이미 카펫이 설치되어 있다면 (두 좌표 모두 0이 아닌 값이며, 값이 같으면) 설치를 취소
         if (whosground[x0, z0] != 0 && whosground[x1, z1] != 0 && whosground[x0, z0] == whosground[x1, z1])
         {
@@ -266,6 +271,9 @@ public class CarpetArrangement : MonoBehaviour
             }
             whosground[x1, z1] = 0;
         }
+        
+        SetTransparency(carpetClones[currentPlayerIndex][0], 1.0f);
+        SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
         
         // 해당 위치가 누구의 땅이고 몇턴에 설치했는지 기록
         int playerMark = (Mathf.FloorToInt(GlobalTurn) * 10) + currentPlayerIndex; //10의 자리 글로벌 턴 1의자리 플레이어 구분
