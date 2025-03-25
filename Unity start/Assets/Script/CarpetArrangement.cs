@@ -40,6 +40,20 @@ public class CarpetArrangement : MonoBehaviour
 
         Transform player = players[currentPlayerIndex];
 
+        //w/a/s/d를 누르지 않고 q/e를 누른 경우
+        
+             if (Input.GetKeyDown(KeyCode.Q) && CheckA==false && CheckD==false&&CheckS==false&&CheckW==false)
+            {
+                Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
+            }
+            if (Input.GetKeyDown(KeyCode.E) && CheckA==false && CheckD==false&&CheckS==false&&CheckW==false)
+            {
+                Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
+            }
+            
+        
+     
+        
         // 플레이어가 W 키를 눌렀을 때 카펫을 배치
         if (Input.GetKeyDown(KeyCode.W) && !Arrangement)
         {
@@ -52,15 +66,7 @@ public class CarpetArrangement : MonoBehaviour
             CheckW = true; CheckA = false;  CheckD = false;   CheckS = false;
         }
         
-        //w/a/s/d를 누르지 않고 q/e를 누른 경우
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
-        }
+      
         // W 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
         if (CheckW)
         {
