@@ -1061,12 +1061,14 @@ MonoBehaviour:
       m_Calls: []
   m_text: 'direction : <-,->
 
+    Roll Dice : T
+
     carpet : W,A,S,D
 
-    carpetdir : Q,E
+    carpetdir
+    : Q,E
 
-    carpet
-    lay : R
+    carpet lay : R
 
     map : M
 

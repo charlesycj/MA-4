@@ -16,7 +16,7 @@ public class DiceUI : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
+        if (Input.GetKeyDown(KeyCode.T))
         {
             RollDice();
         }
@@ -29,6 +29,7 @@ public class DiceUI : MonoBehaviour
     private IEnumerator RollingDice()
     {
         isRolling = true;
+        rollButton.interactable = false;
         int[] Dice = { 1, 2, 2, 3, 3, 4 }; // 주사위 값 배열
         int diceValue = 0;
         for (int i = 0; i < 20; i++)
@@ -41,6 +42,7 @@ public class DiceUI : MonoBehaviour
         
         characterMove.DiceInput(diceValue);
         isRolling = false;
+        rollButton.interactable = true;
     }
    
     
