@@ -48,9 +48,11 @@
   <ItemGroup>
     <Compile Include="Assets\Script\Hw.cs" />
     <Compile Include="Assets\Script\TestDir.cs" />
+    <Compile Include="Assets\DefaceGames\ZoomAndPan.cs" />
     <Compile Include="Assets\Script\CameraSwitcher.cs" />
     <Compile Include="Assets\Script\Move.cs" />
     <Compile Include="Assets\Script\Direction.cs" />
+    <Compile Include="Assets\Script\DiceUI.cs" />
     <Compile Include="Assets\Script\CarpetArrangement.cs" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />

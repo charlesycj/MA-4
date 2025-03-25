@@ -10,7 +10,7 @@ public class Move : MonoBehaviour
     public float dirspeed = 1000f; // 회전 속도
     public Collider triggerCollider;
     public Button button;
-    private int remainCount; 
+    private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
     public void OnButtonClick()
