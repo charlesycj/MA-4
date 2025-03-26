@@ -157,6 +157,8 @@ public class CarpetArrangement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && Arrangement)
         {
             CompleteCarpetArrangement(player);
+            CheckW = false; CheckA = false;  CheckD = false; CheckS = false;
+         
         }
     }
 
@@ -208,7 +210,8 @@ public class CarpetArrangement : MonoBehaviour
         SetTransparency(carpetClones[currentPlayerIndex][1], 0.5f);
 
         Arrangement = true;
-        CheckW = false; CheckA = false;  CheckD = false; CheckS = false;
+      
+        
     }
     
     // 카펫 설치 완료 후 위치를 플레이어 로컬 좌표에 맞게 수정
