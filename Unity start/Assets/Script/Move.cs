@@ -89,12 +89,7 @@ public class Move : MonoBehaviour
                 currentCoroutine = StartCoroutine(Conormove2(-90f)); 
             }
         }
-        
-        
-        
     }
-
-
     private IEnumerator Conormove(float angle)
     {
         triggerCollider.isTrigger = false;
