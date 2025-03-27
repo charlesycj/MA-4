@@ -1,46 +1,51 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class Direction : MonoBehaviour
 {
-    public int dir = 0;
-    private float dirspeed = 100f;
-    void Update()
+    [FormerlySerializedAs("Dir")] public int dir = 0;
+    private float _dirspeed = 100f;
+    private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        if ( Input.GetKeyDown(KeyCode.RightArrow))
         {
-            turnRight();
+            TurnRight();
         }
-        else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
+        else if ( Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            turnLeft();
+            TurnLeft();
         }
     }
 
-    private void turnRight()
+    public void Angle(int dir)
+    {
+        this.dir = dir;
+    }
+    private void TurnRight()
     {
         if (dir < 1)
         {
             dir += 1;
-            StartCoroutine(GO());
+            StartCoroutine(Go(90f));
         }
     }
 
-    private void turnLeft()
+    private void TurnLeft()
     {
         if (dir > -1)
         {
             dir -= 1;
-            StartCoroutine(GO());
+            StartCoroutine(Go(-90f));
         }
     }
 
-    private IEnumerator GO()
+    private IEnumerator Go(float angle)
     {
-        Quaternion targetRot =  Quaternion.Euler(0,  dir * 90, 0);
+        Quaternion targetRot =transform.rotation *  Quaternion.Euler(0,  angle, 0);
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, dirspeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _dirspeed * Time.deltaTime);
             yield return null;
         }
         transform.rotation = targetRot;

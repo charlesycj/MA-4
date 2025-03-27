@@ -13,6 +13,7 @@ public class Move : MonoBehaviour
     private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
+    public Direction Dir;
     public void DiceInput(int dice)
     {
         button.interactable = false;
@@ -32,6 +33,7 @@ public class Move : MonoBehaviour
         }
         isMoving = false;
         button.interactable = true;
+        Dir.Angle (0);
     }
     
     private void StartMovement()
