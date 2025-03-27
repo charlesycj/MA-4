@@ -45,7 +45,8 @@ public class Direction : MonoBehaviour
         Quaternion targetRot =transform.rotation *  Quaternion.Euler(0,  angle, 0);
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot, _dirspeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRot,
+                _dirspeed * Time.deltaTime);
             yield return null;
         }
         transform.rotation = targetRot;

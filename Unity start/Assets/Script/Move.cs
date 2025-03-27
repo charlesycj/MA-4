@@ -1,19 +1,22 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
+using UnityEngine.Serialization;
 using UnityEngine.UI;
 
 public class Move : MonoBehaviour
 {
-    public Transform Player; 
+    [FormerlySerializedAs("Player")] public Transform player; 
     public float speed = 0.001f; // 이동 속도
     public float dirspeed = 1000f; // 회전 속도
     public Collider triggerCollider;
     public Button button;
+    [FormerlySerializedAs("Dir")] public Direction dir;
+    
     private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
-    public Direction Dir;
+    
     public void DiceInput(int dice)
     {
         button.interactable = false;
@@ -33,7 +36,7 @@ public class Move : MonoBehaviour
         }
         isMoving = false;
         button.interactable = true;
-        Dir.Angle (0);
+        dir.Angle (0);
     }
     
     private void StartMovement()
@@ -135,7 +138,8 @@ public class Move : MonoBehaviour
         Quaternion target = transform.rotation * Quaternion.Euler(0f, angle, 0f);
         while (Quaternion.Angle(transform.rotation, target) > 1f)
         {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, target, dirspeed * Time.deltaTime);
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, target,
+                dirspeed * Time.deltaTime);
             yield return null;
         }
         transform.rotation = target; 
@@ -147,7 +151,8 @@ public class Move : MonoBehaviour
         Vector3 target1 = transform.position + new Vector3(0, 1, 0);
         while (Vector3.Distance(transform.position, target1) > 0.005f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target1, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target1,
+                speed * Time.deltaTime);
             yield return null;
         }
         transform.position = target1; // 최종 위치 설정
@@ -159,7 +164,8 @@ public class Move : MonoBehaviour
         Vector3 target = transform.position + transform.forward;
         while (Vector3.Distance(transform.position, target) > 0.005f)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(transform.position, target,
+                speed * Time.deltaTime);
             yield return null;
         }
         transform.position = target; 
