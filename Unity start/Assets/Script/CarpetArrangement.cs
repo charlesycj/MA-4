@@ -33,7 +33,7 @@ public class CarpetArrangement : MonoBehaviour
             Null
     }
     
-    Direction PlayerDirection;
+    Direction PlayerDirection=Direction.Null;
 
     void Start()
     {
