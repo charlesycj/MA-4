@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class CarpetArrangement : MonoBehaviour
 {
@@ -22,8 +23,17 @@ public class CarpetArrangement : MonoBehaviour
     public float GlobalTurn = 1; //
     
     private bool Arrangement = false; // 현재 플레이어가 카펫을 배치했는지 여부
+
+    private  enum Direction //플레이어의 키 추적
+    {
+        CheckW,
+            CheckA,
+        CheckD ,
+            CheckS,
+            Null
+    }
     
-    private bool CheckW = false;  private bool CheckA = false; private bool CheckD = false; private bool CheckS = false;
+    Direction PlayerDirection;
 
     void Start()
     {
@@ -42,33 +52,33 @@ public class CarpetArrangement : MonoBehaviour
 
         //w/a/s/d를 누르지 않고 q/e를 누른 경우
         
-             if (Input.GetKeyDown(KeyCode.Q) && CheckA==false && CheckD==false&&CheckS==false&&CheckW==false)
+             if (Input.GetKeyDown(KeyCode.Q) && PlayerDirection==Direction.Null)
             {
                 Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
             }
-            if (Input.GetKeyDown(KeyCode.E) && CheckA==false && CheckD==false&&CheckS==false&&CheckW==false)
+            if (Input.GetKeyDown(KeyCode.E) && PlayerDirection==Direction.Null)
             {
                 Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
             }
             
-        
+         
      
         
         // 플레이어가 W 키를 눌렀을 때 카펫을 배치
         if (Input.GetKeyDown(KeyCode.W) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.W, player, new Vector3(0, 0.3f, 1), new Vector3(0, 0.3f, 2));
-            CheckW = true; CheckA = false;  CheckD = false;   CheckS = false;
+            PlayerDirection = Direction.CheckW;
         }
         else if (Input.GetKeyDown(KeyCode.W) && Arrangement)
         {
             UpdateCarpetPosition(player, new Vector3(0, 0.3f, 1), new Vector3(0, 0.3f, 2));
-            CheckW = true; CheckA = false;  CheckD = false;   CheckS = false;
+            PlayerDirection = Direction.CheckW;
         }
         
       
         // W 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
-        if (CheckW)
+        if (PlayerDirection==Direction.CheckW)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -84,16 +94,16 @@ public class CarpetArrangement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.A) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.A, player, new Vector3(-1, 0.3f, 0), new Vector3(-2, 0.3f, 0));
-            CheckW = false; CheckA = true;CheckD = false;CheckS = false;
+            PlayerDirection = Direction.CheckA;
         }
         else if (Input.GetKeyDown(KeyCode.A) && Arrangement)
         {
             UpdateCarpetPosition(player, new Vector3(-1, 0.3f, 0), new Vector3(-2, 0.3f, 0));
-            CheckW = false; CheckA = true;CheckD = false;CheckS = false;
+            PlayerDirection = Direction.CheckA;
         }
 
         // A 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
-        if (CheckA)
+        if (PlayerDirection == Direction.CheckA)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -109,16 +119,16 @@ public class CarpetArrangement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.D) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.D, player, new Vector3(1, 0.3f, 0), new Vector3(2,0.3f, 0));
-            CheckW = false; CheckA = false;CheckD = true;CheckS = false;
+            PlayerDirection = Direction.CheckD;
         }
         else if (Input.GetKeyDown(KeyCode.D) && Arrangement)
         {
             UpdateCarpetPosition(player, new Vector3(1, 0.3f, 0), new Vector3(2,0.3f, 0));
-            CheckW = false;  CheckA = false; CheckD = true; CheckS = false;
+            PlayerDirection = Direction.CheckD;
         }
 
         // D 키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
-        if (CheckD)
+        if ( PlayerDirection == Direction.CheckD)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -133,16 +143,16 @@ public class CarpetArrangement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.S, player, new Vector3(0, 0.3f, -1), new Vector3(0, 0.3f, -2));
-            CheckW = false;  CheckA = false;  CheckD = false;CheckS = true;
+            PlayerDirection = Direction.CheckS;
         }
         else if (Input.GetKeyDown(KeyCode.S) && Arrangement)
         {
             UpdateCarpetPosition(player, new Vector3(0, 0.3f, -1), new Vector3(0, 0.3f, -2));
-            CheckW = false;  CheckA = false;  CheckD = false;CheckS = true;
+            PlayerDirection = Direction.CheckS;
         }
 
         // S키를 눌러 카펫이 배치된 이후에만 Q, E 키 입력 가능
-        if (CheckS)
+        if ( PlayerDirection == Direction.CheckS)
         {
             if (Input.GetKeyDown(KeyCode.Q))
             {
@@ -157,7 +167,7 @@ public class CarpetArrangement : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R) && Arrangement)
         {
             CompleteCarpetArrangement(player);
-            CheckW = false; CheckA = false;  CheckD = false; CheckS = false;
+            PlayerDirection = Direction.Null;
          
         }
     }
@@ -232,7 +242,7 @@ public class CarpetArrangement : MonoBehaviour
  
          if ((x0 < 0 || x0 >= 7 || z0 < 0 || z0 >= 7) || (x1 < 0 || x1 >= 7 || z1 < 0 || z1 >= 7))
         {
-            Debug.Log("카펫두개의 설치 범위를 벗어났습니다. 설치할 수 없습니다.");
+            Debug.Log("카펫이 설치 범위를 벗어났습니다. 설치할 수 없습니다.");
             return;
         }
         // 이미 카펫이 설치되어 있다면 (두 좌표 모두 0이 아닌 값이며, 값이 같으면) 설치를 취소
