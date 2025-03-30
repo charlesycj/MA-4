@@ -4,7 +4,7 @@ using UnityEngine.UIElements;
 public class CarpetArrangement : MonoBehaviour
 {
     public Transform[] players; // 4명의 플레이어
-    private int currentPlayerIndex = 0; // 현재 차례인 플레이어 인덱스
+    [HideInInspector]public int currentPlayerIndex = 0; // 현재 차례인 플레이어 인덱스
     public bool[] playerArrangements = new bool[4]; // 각 플레이어가 카펫을 배치했는지 여부
     public GameObject[][] carpetClones = new GameObject[4][]; // 각 플레이어의 카펫 클론
 
@@ -20,7 +20,7 @@ public class CarpetArrangement : MonoBehaviour
     public GameObject Carpet1_Player3; public GameObject Carpet2_Player3;
     public GameObject Carpet1_Player4; public GameObject Carpet2_Player4;
 
-    public float GlobalTurn = 1; //
+    private float GlobalTurn = 1; //
     
     private bool Arrangement = false; // 현재 플레이어가 카펫을 배치했는지 여부
 
