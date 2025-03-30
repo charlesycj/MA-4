@@ -3,9 +3,11 @@ using UnityEngine;
 public class CarpetArrangement : MonoBehaviour
 {
     public Transform[] players; // 4명의 플레이어
-    private int currentPlayerIndex = 0; // 현재 차례인 플레이어 인덱스
     public bool[] playerArrangements = new bool[4]; // 각 플레이어가 카펫을 배치했는지 여부
+    public TurnUI turnUI;
     public GameObject[][] carpetClones = new GameObject[4][]; // 각 플레이어의 카펫 클론
+    
+    private int currentPlayerIndex = 0; // 현재 차례인 플레이어 인덱스
 
     
     // 삭제용 태그 목록
@@ -319,6 +321,9 @@ public class CarpetArrangement : MonoBehaviour
         
         // 새 플레이어는 카펫 배치 가능
         playerArrangements[currentPlayerIndex] = false;
+        
+        // 턴 UI 업데이트 호출
+        turnUI.NextTurn();
     }
    
     // 투명도를 설정하는 함수
