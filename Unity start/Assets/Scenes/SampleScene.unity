@@ -668,18 +668,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dir: 0
---- !u!114 &732793271
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 44753760}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 57feeab94d3d6ca47b6e02f6ab14410f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0
@@ -724,6 +712,51 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1135949090
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1135949092}
+  - component: {fileID: 1135949091}
+  m_Layer: 0
+  m_Name: CoinCount
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1135949091
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135949090}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57feeab94d3d6ca47b6e02f6ab14410f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  carpetArrangement: {fileID: 1253505708}
+--- !u!4 &1135949092
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1135949090}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.47631508, y: -1.1322918, z: 1.2093002}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -971,7 +1004,7 @@ PrefabInstance:
       objectReference: {fileID: 1315116449}
     - target: {fileID: 588997314530886574, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_VersionIndex
-      value: 469
+      value: 481
       objectReference: {fileID: 0}
     - target: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1057,6 +1090,14 @@ PrefabInstance:
       propertyPath: dirspeed
       value: 200
       objectReference: {fileID: 0}
+    - target: {fileID: 6174005067703044307, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
+      propertyPath: coincount
+      value: 
+      objectReference: {fileID: 1135949091}
+    - target: {fileID: 6174005067703044307, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
+      propertyPath: carpetArrangement
+      value: 
+      objectReference: {fileID: 1253505708}
     - target: {fileID: 7507282751974628703, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_Name
       value: Player
@@ -1071,7 +1112,7 @@ PrefabInstance:
       objectReference: {fileID: 9793953}
     - target: {fileID: 7672833271087168283, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_VersionIndex
-      value: 407
+      value: 419
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -1086,9 +1127,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 7507282751974628703, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 732793267}
-    - targetCorrespondingSourceObject: {fileID: 7507282751974628703, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 732793271}
   m_SourcePrefab: {fileID: 100100000, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
 --- !u!1001 &1265821787961391073
 PrefabInstance:
@@ -1383,3 +1421,4 @@ SceneRoots:
   - {fileID: 1253505709}
   - {fileID: 1037971935398255783}
   - {fileID: 8766632489101114964}
+  - {fileID: 1135949092}

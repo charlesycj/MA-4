@@ -1,7 +1,5 @@
 using System.Collections;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -18,7 +16,7 @@ public class Move : MonoBehaviour
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
     
-    private CoinCount coincount;
+    public CoinCount coincount;
     
     public void DiceInput(int dice)
     {
@@ -59,35 +57,35 @@ public class Move : MonoBehaviour
     //남은 주사위 수가 0일때 닿은 카펫 체크
     private void CheckCollisionAfterMove()
     {
-        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f); // 주변 충돌체 검사
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
         foreach (var hitCollider in hitColliders)
         {
+            int playerX = Mathf.RoundToInt(transform.position.x);
+            int playerZ = Mathf.RoundToInt(transform.position.z);
+
             if (hitCollider.CompareTag("CarpetP1"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP1에 닿아 있음!");
-                coincount.ArrivedP1();
-                
+                coincount.Arrived(0, playerX, playerZ);
             }
-            if (hitCollider.CompareTag("CarpetP2"))
+            else if (hitCollider.CompareTag("CarpetP2"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP2에 닿아 있음!");
-                coincount.ArrivedP2();
-              
+                coincount.Arrived(1, playerX, playerZ);
             }
-            if (hitCollider.CompareTag("CarpetP3"))
+            else if (hitCollider.CompareTag("CarpetP3"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP3에 닿아 있음!");
-                coincount.ArrivedP3();
-              
+                coincount.Arrived(2, playerX, playerZ);
             }
-            if (hitCollider.CompareTag("CarpetP4"))
+            else if (hitCollider.CompareTag("CarpetP4"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP4에 닿아 있음!");
-                    coincount.ArrivedP4();
-                   
+                coincount.Arrived(3, playerX, playerZ);
             }
         }
     }
+
     
     private void StartMovement()
     {

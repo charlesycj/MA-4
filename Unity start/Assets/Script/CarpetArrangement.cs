@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class CarpetArrangement : MonoBehaviour
 {
@@ -248,7 +247,7 @@ public class CarpetArrangement : MonoBehaviour
         // 이미 카펫이 설치되어 있다면 (두 좌표 모두 0이 아닌 값이며, 값이 같으면) 설치를 취소
         if (whosground[x0, z0] != 0 && whosground[x1, z1] != 0 && whosground[x0, z0] == whosground[x1, z1])
         {
-            Debug.Log("해당 구역에는 이미 카펫이 설치되어 있어 설치할 수 없습니다.");
+            Debug.Log("기존에 설치된 카펫에 정확히 겹칩니다! 다른 곳에 설치해주세요!");
             return;
         }
         
@@ -304,7 +303,7 @@ public class CarpetArrangement : MonoBehaviour
         SetTransparency(carpetClones[currentPlayerIndex][1], 1.0f);
         
         // 해당 위치가 누구의 땅이고 몇턴에 설치했는지 기록
-        int playerMark = (Mathf.FloorToInt(GlobalTurn) * 10) + currentPlayerIndex; //10의 자리 글로벌 턴 1의자리 플레이어 구분
+        int playerMark = (Mathf.FloorToInt(GlobalTurn) * 10) + currentPlayerIndex+1; //10의 자리 글로벌 턴 1의자리 플레이어 구분
         whosground[x0, z0] = playerMark;
         whosground[x1, z1] = playerMark;
         
