@@ -7,7 +7,8 @@ public class GameStartScence : MonoBehaviour
 {
     public Button ExitButton;
     public Button StartButton;
-
+    public GameObject howToPlay; 
+   
 
     public void Gameexite()
     {
@@ -17,6 +18,7 @@ public class GameStartScence : MonoBehaviour
 
     public void GameStart()
     {
-        SceneManager.LoadScene("SampleScene");
+        
+        howToPlay.SetActive(true);  // 활성화
     }
 }
