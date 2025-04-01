@@ -6,9 +6,10 @@ public class Direction : MonoBehaviour
 {
     [FormerlySerializedAs("Dir")] public int dir = 0;
     private float _dirspeed = 100f;
+    private bool ismoving = false;
     private void Update()
     {
-        if (TurnPhase.Instance.CurrentState != PlayerState.RotatingOrRolling) return;
+        if (TurnPhase.Instance.CurrentState != PlayerState.RotatingOrRolling || ismoving) return;
 
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
@@ -44,6 +45,7 @@ public class Direction : MonoBehaviour
 
     private IEnumerator Go(float angle)
     {
+        ismoving = true;
         Quaternion targetRot =transform.rotation *  Quaternion.Euler(0,  angle, 0);
         while (Quaternion.Angle(transform.rotation, targetRot) > 0.1f)
         {
@@ -52,6 +54,7 @@ public class Direction : MonoBehaviour
             yield return null;
         }
         transform.rotation = targetRot;
+        ismoving = false;
     }
 
 }
