@@ -14,11 +14,14 @@ public class DiceUI : MonoBehaviour
     {
         Originimage = rollButton.GetComponent<Image>();
     }
-    void Update()
+    private void Update()
     {
+        if (TurnPhase.Instance.CurrentState != PlayerState.RotatingOrRolling) return;
+
         if (Input.GetKeyDown(KeyCode.T))
         {
             RollDice();
+            TurnPhase.Instance.SetState(PlayerState.PlacingCarpet); // 주사위 던지면 카펫 설치 단계로 이동
         }
     }
     private void RollDice()

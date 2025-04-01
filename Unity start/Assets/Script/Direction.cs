@@ -8,11 +8,13 @@ public class Direction : MonoBehaviour
     private float _dirspeed = 100f;
     private void Update()
     {
-        if ( Input.GetKeyDown(KeyCode.RightArrow))
+        if (TurnPhase.Instance.CurrentState != PlayerState.RotatingOrRolling) return;
+
+        if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             TurnRight();
         }
-        else if ( Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             TurnLeft();
         }

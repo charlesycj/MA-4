@@ -15,7 +15,6 @@ public class Move : MonoBehaviour
     private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
-    
     public CoinCount coincount;
     
     public void DiceInput(int dice)
@@ -67,21 +66,25 @@ public class Move : MonoBehaviour
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP1에 닿아 있음!");
                 coincount.Arrived(0, playerX, playerZ);
+               
             }
             else if (hitCollider.CompareTag("CarpetP2"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP2에 닿아 있음!");
                 coincount.Arrived(1, playerX, playerZ);
+               
             }
             else if (hitCollider.CompareTag("CarpetP3"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP3에 닿아 있음!");
                 coincount.Arrived(2, playerX, playerZ);
+                
             }
             else if (hitCollider.CompareTag("CarpetP4"))
             {
                 Debug.Log("이동이 끝난 후 플레이어가 CarpetP4에 닿아 있음!");
                 coincount.Arrived(3, playerX, playerZ);
+               
             }
         }
     }

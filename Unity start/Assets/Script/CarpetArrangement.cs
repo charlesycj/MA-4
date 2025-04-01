@@ -47,6 +47,7 @@ public class CarpetArrangement : MonoBehaviour
 
     public void Update()
     {
+        if (TurnPhase.Instance.CurrentState != PlayerState.PlacingCarpet) return;
         // 현재 플레이어 차례인 경우만 진행
         if (currentPlayerIndex < 0 || currentPlayerIndex >= 4) return;
 
@@ -62,9 +63,6 @@ public class CarpetArrangement : MonoBehaviour
             {
                 Debug.Log("W/A/S/D중 하나를 눌러 방향을 먼저 지정해주세요!");
             }
-            
-         
-     
         
         // 플레이어가 W 키를 눌렀을 때 카펫을 배치
         if (Input.GetKeyDown(KeyCode.W) && !Arrangement)
@@ -92,7 +90,7 @@ public class CarpetArrangement : MonoBehaviour
             }
         }
 
-        // A 키 눌렀을 때 처리 (W와 비슷)
+        // A 키 눌렀을 때 처리 
         if (Input.GetKeyDown(KeyCode.A) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.A, player, new Vector3(-1, 0.3f, 0), new Vector3(-2, 0.3f, 0));
@@ -117,7 +115,7 @@ public class CarpetArrangement : MonoBehaviour
             }
         }
 
-        // D 키 눌렀을 때 처리 (W와 비슷)
+        // D 키 눌렀을 때 처리
         if (Input.GetKeyDown(KeyCode.D) && !Arrangement)
         {
             HandleCarpetArrangement(KeyCode.D, player, new Vector3(1, 0.3f, 0), new Vector3(2,0.3f, 0));
@@ -238,7 +236,6 @@ public class CarpetArrangement : MonoBehaviour
         int z0 = Mathf.RoundToInt(pos0.z + 3);  
         int x1 = Mathf.RoundToInt(pos1.x + 3);
         int z1 = Mathf.RoundToInt(pos1.z + 3);
-
         
         // 설치 가능한 범위는 예시로 (0,7) 내부라고 가정 (즉, 1~6만 허용)
  
@@ -329,11 +326,12 @@ public class CarpetArrangement : MonoBehaviour
             GlobalTurn++;
         }
         
+        TurnPhase.Instance.NextTurn();
         // 새 플레이어는 카펫 배치 가능
         playerArrangements[currentPlayerIndex] = false;
         
         // 턴 UI 업데이트 호출
-        turnUI.NextTurn();
+        // turnUI.NextTurn();
     }
    
     // 투명도를 설정하는 함수
