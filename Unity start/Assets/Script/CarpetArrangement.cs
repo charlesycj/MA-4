@@ -331,7 +331,7 @@ public class CarpetArrangement : MonoBehaviour
         playerArrangements[currentPlayerIndex] = false;
         
         // 턴 UI 업데이트 호출
-        // turnUI.NextTurn();
+        turnUI.NextTurn();
     }
    
     // 투명도를 설정하는 함수
