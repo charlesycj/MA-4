@@ -9,8 +9,6 @@ public class CarpetArrangement : MonoBehaviour
     public bool[] playerArrangements = new bool[4]; // 각 플레이어가 카펫을 배치했는지 여부
     public TurnUI turnUI;
     public GameObject[][] carpetClones = new GameObject[4][]; // 각 플레이어의 카펫 클론
-    
-    private int currentPlayerIndex = 0; // 현재 차례인 플레이어 인덱스
 
     
     // 삭제용 태그 목록
