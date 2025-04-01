@@ -5581,7 +5581,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2329653705897282868}
+      - m_Target: {fileID: 2329653705897282872}
         m_TargetAssemblyTypeName: UIButton, Assembly-CSharp
         m_MethodName: OnMoveButtonClick
         m_Mode: 1
@@ -8342,10 +8342,10 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 3119928574097198974, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2329653705897282863}
+      addedObject: {fileID: 2329653705897282872}
     - targetCorrespondingSourceObject: {fileID: 3119928574097198974, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2329653705897282868}
+      addedObject: {fileID: 2329653705897282871}
   m_SourcePrefab: {fileID: 100100000, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
 --- !u!224 &2329653705897282860 stripped
 RectTransform:
@@ -8362,7 +8362,12 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3119928574097198974, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
   m_PrefabInstance: {fileID: 2329653705897282859}
   m_PrefabAsset: {fileID: 0}
---- !u!95 &2329653705897282863
+--- !u!224 &2329653705897282864 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3378860839231173943, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
+  m_PrefabInstance: {fileID: 2329653705897282859}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2329653705897282871
 Animator:
   serializedVersion: 7
   m_ObjectHideFlags: 0
@@ -8384,12 +8389,7 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!224 &2329653705897282864 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 3378860839231173943, guid: fc141cedd525b954a8cf118b122995e4, type: 3}
-  m_PrefabInstance: {fileID: 2329653705897282859}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &2329653705897282868
+--- !u!114 &2329653705897282872
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8401,7 +8401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ade6cb639c17ea04d975ccc4172097ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panelAnimator: {fileID: 2329653705897282863}
+  panelAnimator: {fileID: 2329653705897282871}
 --- !u!1001 &3877190173103813390
 PrefabInstance:
   m_ObjectHideFlags: 0
