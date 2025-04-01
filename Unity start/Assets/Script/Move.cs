@@ -1,6 +1,5 @@
 using System.Collections;
 using UnityEngine;
-using UnityEngine.InputSystem.HID;
 using UnityEngine.Serialization;
 using UnityEngine.UI;
 
@@ -16,6 +15,8 @@ public class Move : MonoBehaviour
     private int remainCount; //남은 이동
     private Coroutine currentCoroutine; // 현재 실행 중인 코루틴
     private bool isMoving;
+    
+    public CoinCount coincount;
     
     public void DiceInput(int dice)
     {
@@ -37,7 +38,54 @@ public class Move : MonoBehaviour
         isMoving = false;
         button.interactable = true;
         dir.Angle (0);
+        
+        if (remainCount == 0)
+        {
+            CheckCollisionAfterMove();
+        }
     }
+    
+    private void Start()
+    {
+        coincount = FindObjectOfType<CoinCount>(); // 씬에서 CoinCount 찾기
+        if (coincount == null)
+        {
+            Debug.LogError("CoinCount 스크립트를 찾을 수 없습니다!");
+        }
+    }
+    
+    //남은 주사위 수가 0일때 닿은 카펫 체크
+    private void CheckCollisionAfterMove()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, 0.5f);
+        foreach (var hitCollider in hitColliders)
+        {
+            int playerX = Mathf.RoundToInt(transform.position.x);
+            int playerZ = Mathf.RoundToInt(transform.position.z);
+
+            if (hitCollider.CompareTag("CarpetP1"))
+            {
+                Debug.Log("이동이 끝난 후 플레이어가 CarpetP1에 닿아 있음!");
+                coincount.Arrived(0, playerX, playerZ);
+            }
+            else if (hitCollider.CompareTag("CarpetP2"))
+            {
+                Debug.Log("이동이 끝난 후 플레이어가 CarpetP2에 닿아 있음!");
+                coincount.Arrived(1, playerX, playerZ);
+            }
+            else if (hitCollider.CompareTag("CarpetP3"))
+            {
+                Debug.Log("이동이 끝난 후 플레이어가 CarpetP3에 닿아 있음!");
+                coincount.Arrived(2, playerX, playerZ);
+            }
+            else if (hitCollider.CompareTag("CarpetP4"))
+            {
+                Debug.Log("이동이 끝난 후 플레이어가 CarpetP4에 닿아 있음!");
+                coincount.Arrived(3, playerX, playerZ);
+            }
+        }
+    }
+
     
     private void StartMovement()
     {
