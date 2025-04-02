@@ -45,7 +45,7 @@ public class CarpetArrangement : MonoBehaviour
 
     public void Update()
     {
-        if (turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]!=false)
+        if (TurnPhase.Instance.CurrentState != PlayerState.GameEnd && turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]!=false)
         {
             turnPhase.SetState(PlayerState.RotatingOrRolling);
             turnPhase.CurrentPlayerIndex+=1;

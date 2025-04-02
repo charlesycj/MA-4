@@ -155,12 +155,12 @@ Transform:
   m_GameObject: {fileID: 15944184}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 942.03265, y: 528.57666, z: -8.242591}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 732793262}
   - {fileID: 385365981}
+  - {fileID: 732793262}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &44753760 stripped
@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carpetArrangement: {fileID: 1253505708}
   turnPhase: {fileID: 492016176}
-  coin: 01000000010000000100000001000000
+  coin: 1e0000001e0000001e0000001e000000
   isBankrupt: 00000000
 --- !u!4 &381596738
 Transform:
@@ -2221,10 +2221,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinCount: {fileID: 381596737}
+  carpetArrangement: {fileID: 1253505708}
   CurrentState: 0
   CurrentPlayerIndex: 0
   GlobalTurn: 0
   TotalPlayers: 4
+  MaxGlobalTurn: 6
   PlayerCheck: 
   Rank: 00000000000000000000000000000000
   Score: 00000000000000000000000000000000
@@ -9324,15 +9326,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -942.03265
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -528.57666
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.242591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 713688087351831543, guid: 0bc430593da18994f95c9a2610f132a2, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9894,15 +9896,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 501535407301129951, guid: b034836bca1047843872c1c29c17d1cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -942.03265
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501535407301129951, guid: b034836bca1047843872c1c29c17d1cc, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -528.57666
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501535407301129951, guid: b034836bca1047843872c1c29c17d1cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 8.242591
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 501535407301129951, guid: b034836bca1047843872c1c29c17d1cc, type: 3}
       propertyPath: m_LocalRotation.w

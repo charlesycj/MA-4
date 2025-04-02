@@ -113,12 +113,13 @@ public class CoinCount : MonoBehaviour
         if (isBankrupt[currentPlayer])
         {
             HandleBankruptPlayer(currentPlayer);
-            carpetArrangement.RemoveAllCarpetsOfPlayer(currentPlayer);
+            
         }
     }
 
     private void HandleBankruptPlayer(int playerIndex)
     {
+        carpetArrangement.RemoveAllCarpetsOfPlayer(turnPhase.CurrentPlayerIndex);
         Debug.Log($"플레이어P{playerIndex + 1}은(는) 파산하여 게임에서 더 이상 진행할 수 없습니다.");
         turnPhase.PlayerCheck[playerIndex] = true;
      

@@ -12,11 +12,13 @@ public class TurnPhase : MonoBehaviour
 {
     public static TurnPhase Instance;
     public CoinCount coinCount;
-
+    public CarpetArrangement carpetArrangement;
+    
     public PlayerState CurrentState = PlayerState.RotatingOrRolling;
     public int CurrentPlayerIndex  = 0;
     public float GlobalTurn; 
     public int TotalPlayers = 4;
+    public int MaxGlobalTurn=12;
     public bool[] PlayerCheck; //플레이어 파산여부 확인
     public int[]Rank= new int[4];
     public int[]Score=new int[4];
@@ -94,6 +96,35 @@ public class TurnPhase : MonoBehaviour
     public void GameOver()
     {
         SetState(PlayerState.GameEnd);
+        ResultScore();
         Debug.Log("게임 종료!");
+    }
+    public void ResultScore()
+    {
+        // 점수 배열 초기화
+        for (int i = 0; i < 4; i++)
+        {
+            Score[i] = coinCount.coin[i]; // 코인 개수를 점수로 추가
+        }
+
+        // whosground 배열을 순회하며 각 플레이어의 카펫 개수를 점수에 추가
+        for (int x = 0; x < 7; x++)
+        {
+            for (int z = 0; z < 7; z++)
+            {
+                int value = carpetArrangement.whosground[x, z];
+                if (value != 0)
+                {
+                    int playerIndex = value % 10; // 1의 자리 값이 플레이어 인덱스
+                    if (playerIndex >= 0 && playerIndex < 4)
+                    {
+                        Score[playerIndex] += 1; // 해당 플레이어 점수 증가
+                    }
+                }
+            }
+        }
+
+        // 최종 점수 출력
+        Debug.Log($"P1: {Score[0]}, P2: {Score[1]}, P3: {Score[2]}, P4: {Score[3]}");
     }
 }
