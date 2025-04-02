@@ -7,10 +7,9 @@ public class CoinCount : MonoBehaviour
     public CarpetArrangement carpetArrangement;
     private int gridSize = 7;
     
-    private int P1coin = 30;
-    private int P2coin = 30;
-    private int P3coin = 30;
-    private int P4coin = 30;
+    private int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
+    
+  
 
     void Start()
     {
@@ -76,22 +75,26 @@ public class CoinCount : MonoBehaviour
     private void GiveCoins(int playerNumber, int amount)
     {
         int currentPlayer = carpetArrangement.currentPlayerIndex;
-        switch (playerNumber)
-        {
-            case 0: P1coin += amount; break;
-            case 1: P2coin += amount; break;
-            case 2: P3coin += amount; break;
-            case 3: P4coin += amount; break;
-        }
-        // 코인을 지불하는 플레이어
+
+        // 현재 플레이어가 코인을 지급
         switch (currentPlayer)
         {
-            case 0: P1coin -= amount; break;
-            case 1: P2coin -= amount; break;
-            case 2: P3coin -= amount; break;
-            case 3: P4coin -= amount; break;
+            case 0: coin[0] -= amount; break;
+            case 1: coin[1] -= amount; break;
+            case 2: coin[2] -= amount; break;
+            case 3: coin[3] -= amount; break;
         }
 
-        Debug.Log($"Player {playerNumber + 1} receives {amount} coins from Player {currentPlayer + 1}.");
+        // 코인을 받는 플레이어
+        switch (playerNumber)
+        {
+            case 0: coin[0] += amount; break;
+            case 1: coin[1] += amount; break;
+            case 2: coin[2] += amount; break;
+            case 3: coin[3] += amount; break;
+        }
+
+        Debug.Log($"플레이어P{currentPlayer + 1} → 플레이어P{playerNumber + 1}에게 {amount}코인 지급");
+        Debug.Log($"플레이어P{currentPlayer + 1}의 현재 코인: {coin[currentPlayer]} | 플레이어P{playerNumber + 1}의 현재 코인: {coin[playerNumber]}");
     }
 }

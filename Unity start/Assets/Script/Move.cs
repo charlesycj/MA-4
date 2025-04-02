@@ -40,6 +40,7 @@ public class Move : MonoBehaviour
         
         if (remainCount == 0)
         {
+            TurnPhase.Instance.SetState(PlayerState.PlacingCarpet); // 주사위 던지면 카펫 설치 단계로 이동
             CheckCollisionAfterMove();
         }
     }

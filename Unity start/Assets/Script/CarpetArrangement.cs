@@ -175,7 +175,7 @@ public class CarpetArrangement : MonoBehaviour
     // 카펫의 위치 업데이트 (로컬 좌표로 변경)
     public void UpdateCarpetPosition(Transform player, Vector3 position1, Vector3 position2)
     {
-        // 로컬 좌표를 월드 좌표로 변환
+        // 로컬 좌표를 월드 좌표로 변환r
         Vector3 carpetPosition1 = player.TransformPoint(position1);
         Vector3 carpetPosition2 = player.TransformPoint(position2);
         

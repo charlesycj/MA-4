@@ -4,7 +4,6 @@ public enum PlayerState
 {
     RotatingOrRolling, // 회전 및 주사위 던지기 단계
     PlacingCarpet,     // 카펫 배치 단계
-    TurnEnded          // 턴 종료 후 대기 상태
 }
 public class TurnPhase : MonoBehaviour
 {
