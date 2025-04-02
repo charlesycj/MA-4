@@ -120,8 +120,18 @@ public class CoinCount : MonoBehaviour
     private void HandleBankruptPlayer(int playerIndex)
     {
         Debug.Log($"플레이어P{playerIndex + 1}은(는) 파산하여 게임에서 더 이상 진행할 수 없습니다.");
-        
         turnPhase.PlayerCheck[playerIndex] = true;
+     
+        // Rank 배열에서 첫 번째 비어 있는(0인) 위치를 찾아 플레이어 인덱스를 저장
+        for (int i = 0; i < turnPhase.Rank.Length; i++)
+        {
+            if (turnPhase.Rank[i] == 0)
+            {
+                turnPhase.Rank[i] = playerIndex + 1; // P1, P2, P3, P4 식으로 저장하기 위해 +1
+                break;
+            }
+        }
+        
         // 만약 현재 플레이어가 파산한 경우, 즉시 다음 턴으로 넘어감
         if (playerIndex == turnPhase.CurrentPlayerIndex)
         {
