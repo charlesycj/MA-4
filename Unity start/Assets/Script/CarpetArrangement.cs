@@ -20,7 +20,7 @@ public class CarpetArrangement : MonoBehaviour
     public GameObject Carpet1_Player3; public GameObject Carpet2_Player3;
     public GameObject Carpet1_Player4; public GameObject Carpet2_Player4;
 
-    private float GlobalTurn = 1; //
+   
     
     private bool Arrangement = false; // 현재 플레이어가 카펫을 배치했는지 여부
 
@@ -45,19 +45,10 @@ public class CarpetArrangement : MonoBehaviour
 
     public void Update()
     {
-        if (turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]==null)
-        {
-            turnPhase.GameOver();
-            return;
-        }
-
         if (turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]!=false)
         {
-            
-                turnPhase.SetState(PlayerState.RotatingOrRolling);
-                turnPhase.CurrentPlayerIndex+=1;
-            
-            
+            turnPhase.SetState(PlayerState.RotatingOrRolling);
+            turnPhase.CurrentPlayerIndex+=1;
           
         }
         if (TurnPhase.Instance.CurrentState != PlayerState.PlacingCarpet) return;
@@ -316,7 +307,7 @@ public class CarpetArrangement : MonoBehaviour
         SetTransparency(carpetClones[turnPhase.CurrentPlayerIndex][1], 1.0f);
         
         // 해당 위치가 누구의 땅이고 몇턴에 설치했는지 기록
-        int playerMark = (Mathf.FloorToInt(GlobalTurn) * 10) + turnPhase.CurrentPlayerIndex; //10의 자리 글로벌 턴 1의자리 플레이어 구분
+        int playerMark = (Mathf.FloorToInt(turnPhase.GlobalTurn) * 10) + turnPhase.CurrentPlayerIndex; //10의 자리 글로벌 턴 1의자리 플레이어 구분
         whosground[x0, z0] = playerMark;
         whosground[x1, z1] = playerMark;
         
@@ -329,15 +320,6 @@ public class CarpetArrangement : MonoBehaviour
         Debug.Log($"해당 구역 (x좌표:{x0-3}, z좌표:{z0-3}) 와 (x좌표:{x1-3}, z좌표:{z1-3})를 " + 
                   $"플레이어{turnPhase.CurrentPlayerIndex+1}의 땅으로 변경 ");
         Debug.Log($"배열 {x0},{z0}와  {x1},{z1}를 {whosground[x0,z0]+1}로 변경");
-        
-        // // 다음 플레이어로 턴을 넘김
-        // turnPhase.CurrentPlayerIndex = (turnPhase.CurrentPlayerIndex + 1) % 4;
-        
-        // 모든 플레이어가 차례를 마쳤다면 글로벌 턴 증가
-        if (turnPhase.CurrentPlayerIndex == 0)
-        {
-            GlobalTurn++;
-        }
         
         TurnPhase.Instance.NextTurn();
         // 새 플레이어는 카펫 배치 가능
