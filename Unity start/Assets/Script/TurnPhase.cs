@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Linq;
 public enum PlayerState
 {
     RotatingOrRolling, // 회전 및 주사위 던지기 단계
@@ -7,7 +7,6 @@ public enum PlayerState
     GameEnd
 }
 
-    
 public class TurnPhase : MonoBehaviour
 {
     public static TurnPhase Instance;
@@ -21,17 +20,23 @@ public class TurnPhase : MonoBehaviour
     public int MaxGlobalTurn=12;
     public bool[] PlayerCheck; //플레이어 파산여부 확인
     public int[]Rank= new int[4];
-    public int[]Score=new int[4];
+    public int[]Score= new int[4];
+    
     private void Awake()
     {
         if (Instance == null)
             Instance = this;
         else
             Destroy(gameObject);
+        for (int i = 0; i < 4; i++)
+        {
+            Rank[i] = -1;
+        }
     }
 
     private void Start()
     {
+       
         PlayerCheck = new bool[TotalPlayers];  // 자동으로 false로 초기화됨
         GlobalTurn=1; 
         
@@ -45,17 +50,22 @@ public class TurnPhase : MonoBehaviour
 
     public void NextTurn()
     {
-       
+        int Islive = 0;
+        for (int i = 0; i < 4; i++)
+        {
+            if(PlayerCheck[i]!=false)
+                Islive++;
+        }
         // 모든 플레이어가 차례를 마쳤다면 글로벌 턴 증가
-        if (CurrentPlayerIndex == 3)
+        if (CurrentPlayerIndex >= 4 - Islive)
         {
             GlobalTurn++;
         }
         // 글로벌 턴이 3이면 게임 종료
-        if (GlobalTurn == 3)
+        if (GlobalTurn == MaxGlobalTurn)
         {
             GameOver();
-            Debug.Log("글로벌 턴 3 도달! 게임 종료!");
+            Debug.Log("글로벌 턴 최대치 도달! 게임 종료!");
             return;
         }
         
@@ -76,7 +86,7 @@ public class TurnPhase : MonoBehaviour
         if (alivePlayers == 1)
         {
             GameOver();
-            Debug.Log($"게임 종료! 플레이어 P{lastPlayerIndex + 1} 우승");
+            
             return;
         }
 
@@ -96,62 +106,70 @@ public class TurnPhase : MonoBehaviour
     public void GameOver()
     {
         SetState(PlayerState.GameEnd);
+        ScoreResult();
         Debug.Log("게임 종료!");
-
-        int remainingPlayers = 0;
-
-        // 1. 아직 순위가 매겨지지 않은 플레이어 수 계산
-        foreach (int rank in Rank)
-        {
-            if (rank == 0) remainingPlayers++;
+        
         }
 
-        // 2. CoinCount의 coin 배열을 기반으로 순위 결정
-        if (remainingPlayers > 1) // 아직 순위가 정해지지 않은 플레이어가 2명 이상이라면
+    public void ScoreResult()
+    {
+        int[] scoreData = new int[4]; // 각 플레이어의 점수 저장
+        bool[] isAlive = new bool[4]; // 살아있는 플레이어 체크
+
+        // 점수 계산 및 파산 여부 체크
+        for (int i = 0; i < 4; i++)
         {
-            CoinCount coinCount = FindObjectOfType<CoinCount>(); // CoinCount 인스턴스 찾기
-            if (coinCount == null)
+            if (coinCount.isBankrupt[i]) 
             {
-                Debug.LogError("CoinCount 객체를 찾을 수 없습니다!");
-                return;
+                isAlive[i] = false; // 파산한 플레이어는 순위 계산에서 제외
+                continue;
             }
 
-            int[] coins = coinCount.coin; // CoinCount의 coin 배열 직접 참조
-            int[] sortedIndexes = new int[remainingPlayers]; // 정렬할 플레이어 인덱스 배열
-            int index = 0;
+            int totalScore = 0;
 
-            // 3. 아직 순위가 정해지지 않은 플레이어들의 인덱스를 배열에 저장
-            for (int i = 0; i < Rank.Length; i++)
+            // whosground 배열을 검사하여 해당 플레이어가 놓은 카펫 개수 계산
+            for (int x = 0; x < carpetArrangement.whosground.GetLength(0); x++)
             {
-                if (Rank[i] == 0)
+                for (int z = 0; z < carpetArrangement.whosground.GetLength(1); z++)
                 {
-                    sortedIndexes[index] = i;
-                    index++;
-                }
-            }
-
-            // 4. 버블 정렬을 사용해 코인 개수를 기준으로 내림차순 정렬
-            for (int i = 0; i < remainingPlayers - 1; i++)
-            {
-                for (int j = 0; j < remainingPlayers - 1 - i; j++)
-                {
-                    if (coins[sortedIndexes[j]] < coins[sortedIndexes[j + 1]])
+                    if (carpetArrangement.whosground[x, z] % 10 == i) // 플레이어 i가 설치한 카펫인지 확인
                     {
-                        // 두 값을 스왑
-                        int temp = sortedIndexes[j];
-                        sortedIndexes[j] = sortedIndexes[j + 1];
-                        sortedIndexes[j + 1] = temp;
+                        totalScore++;
                     }
                 }
             }
 
-            // 5. 정렬된 순서대로 높은 등수부터 배정 (1등부터 채우는 게 아니라, 가장 높은 Rank부터 채우기)
-            int rankValue = Rank.Length - remainingPlayers + 1; // 1등이 아닌, Rank 배열의 남은 부분부터 채움
-            for (int i = 0; i < remainingPlayers; i++)
+            Score[i] = totalScore + coinCount.coin[i]; // 총 점수 계산
+            scoreData[i] = Score[i]; // 점수 저장
+            isAlive[i] = true; // 살아있는 플레이어 체크
+
+            Debug.Log($"P{i + 1} 플레이어의 점수: {Score[i]}");
+        }
+
+        // 점수를 기준으로 Rank 배열 앞쪽부터 높은 순위 채우기
+        for (int rankIndex = 0; rankIndex < 4; rankIndex++)
+        {
+            int maxIndex = -1;
+            int maxScore = int.MinValue;
+
+            // 살아있는 플레이어 중 가장 점수 높은 사람 찾기
+            for (int j = 0; j < 4; j++)
             {
-                Rank[sortedIndexes[i]] = rankValue;
-                rankValue++;
+                if (isAlive[j] && scoreData[j] > maxScore)
+                {
+                    maxScore = scoreData[j];
+                    maxIndex = j;
+                }
+            }
+
+            // 찾은 플레이어를 Rank 배열에 추가
+            if (maxIndex != -1)
+            {
+                Rank[rankIndex] = maxIndex + 1; // P1, P2, P3, P4 형식으로 저장
+                isAlive[maxIndex] = false; // 순위가 정해진 플레이어 제외
             }
         }
+
+        Debug.Log($"최종 순위 1위: P{Rank[0]} 2위: P{Rank[1]} 3위: P{Rank[2]} 4위: P{Rank[3]}");
     }
 }

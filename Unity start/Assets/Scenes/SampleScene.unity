@@ -1426,7 +1426,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carpetArrangement: {fileID: 1253505708}
   turnPhase: {fileID: 492016176}
-  coin: 1e0000001e0000001e0000001e000000
+  coin: 01000000010000000100000001000000
   isBankrupt: 00000000
 --- !u!4 &381596738
 Transform:
@@ -2226,7 +2226,7 @@ MonoBehaviour:
   CurrentPlayerIndex: 0
   GlobalTurn: 0
   TotalPlayers: 4
-  MaxGlobalTurn: 6
+  MaxGlobalTurn: 3
   PlayerCheck: 
   Rank: 00000000000000000000000000000000
   Score: 00000000000000000000000000000000
