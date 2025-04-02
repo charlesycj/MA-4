@@ -41,6 +41,13 @@ public class CarpetArrangement : MonoBehaviour
         {
             carpetClones[i] = new GameObject[2]; // 각 플레이어는 두 개의 카펫을 배치
         }
+        for (int x = 0; x < 7; x++)
+        {
+            for (int y = 0; y < 7; y++)
+            {
+                whosground[x, y] = -1;
+            }
+        }
     }
 
     public void Update()
@@ -249,14 +256,14 @@ public class CarpetArrangement : MonoBehaviour
             return;
         }
         // 이미 카펫이 설치되어 있다면 (두 좌표 모두 0이 아닌 값이며, 값이 같으면) 설치를 취소
-        if (whosground[x0, z0] != 0 && whosground[x1, z1] != 0 && whosground[x0, z0] == whosground[x1, z1])
+        if (whosground[x0, z0] != -1 && whosground[x1, z1] != -1 && whosground[x0, z0] == whosground[x1, z1])
         {
             Debug.Log("기존에 설치된 카펫에 정확히 겹칩니다! 다른 곳에 설치해주세요!");
             return;
         }
         
         // 좌표 x0, z0에 해당하는 셀에 있는 카펫 삭제 (설치하려는 카펫 제외)
-        if (whosground[x0, z0] != 0)
+        if (whosground[x0, z0] != -1)
         {
             foreach (string tag in carpetTags)
             {
@@ -276,11 +283,11 @@ public class CarpetArrangement : MonoBehaviour
                     }
                 }
             }
-            whosground[x0, z0] = 0;
+            whosground[x0, z0] = -1;
         }
 
 // 좌표 x1, z1에 해당하는 셀에 있는 카펫 삭제 (설치하려는 카펫 제외)
-        if (whosground[x1, z1] != 0)
+        if (whosground[x1, z1] != -1)
         {
             foreach (string tag in carpetTags)
             {
@@ -300,7 +307,7 @@ public class CarpetArrangement : MonoBehaviour
                     }
                 }
             }
-            whosground[x1, z1] = 0;
+            whosground[x1, z1] = -1;
         }
         
         SetTransparency(carpetClones[turnPhase.CurrentPlayerIndex][0], 1.0f);
@@ -358,7 +365,7 @@ public class CarpetArrangement : MonoBehaviour
             {
                 if (whosground[x, z] % 10 == (playerIndex)) // 해당 플레이어가 깔았던 위치인지 확인
                 {
-                    whosground[x, z] = 0;
+                    whosground[x, z] = -1;
                     Debug.Log($"Cleared whosground[{x}, {z}]");
                 }
             }

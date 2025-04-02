@@ -10,7 +10,6 @@ public class CoinCount : MonoBehaviour
     
     public int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
     public bool[] isBankrupt = new bool[4]; //각 플레이어의 파산 여부
-  
 
     void Start()
     {
@@ -76,6 +75,7 @@ public class CoinCount : MonoBehaviour
     private void GiveCoins(int playerNumber, int amount)
     {
         int currentPlayer = turnPhase.CurrentPlayerIndex;
+    
 
         // 밟은 카펫의 주인이 현재 플레이어와 같다면 실행하지 않음
         if (playerNumber == currentPlayer)
@@ -113,13 +113,13 @@ public class CoinCount : MonoBehaviour
         if (isBankrupt[currentPlayer])
         {
             HandleBankruptPlayer(currentPlayer);
-            
+            carpetArrangement.RemoveAllCarpetsOfPlayer(currentPlayer);
         }
     }
 
     private void HandleBankruptPlayer(int playerIndex)
     {
-        carpetArrangement.RemoveAllCarpetsOfPlayer(turnPhase.CurrentPlayerIndex);
+        
         Debug.Log($"플레이어P{playerIndex + 1}은(는) 파산하여 게임에서 더 이상 진행할 수 없습니다.");
         turnPhase.PlayerCheck[playerIndex] = true;
      

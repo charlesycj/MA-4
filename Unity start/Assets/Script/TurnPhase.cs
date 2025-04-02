@@ -92,39 +92,66 @@ public class TurnPhase : MonoBehaviour
         
         TurnUI.Instance.UpdateTurnUI(CurrentPlayerIndex);
     }
-
+    
     public void GameOver()
     {
         SetState(PlayerState.GameEnd);
-        ResultScore();
         Debug.Log("게임 종료!");
-    }
-    public void ResultScore()
-    {
-        // 점수 배열 초기화
-        for (int i = 0; i < 4; i++)
+
+        int remainingPlayers = 0;
+
+        // 1. 아직 순위가 매겨지지 않은 플레이어 수 계산
+        foreach (int rank in Rank)
         {
-            Score[i] = coinCount.coin[i]; // 코인 개수를 점수로 추가
+            if (rank == 0) remainingPlayers++;
         }
 
-        // whosground 배열을 순회하며 각 플레이어의 카펫 개수를 점수에 추가
-        for (int x = 0; x < 7; x++)
+        // 2. CoinCount의 coin 배열을 기반으로 순위 결정
+        if (remainingPlayers > 1) // 아직 순위가 정해지지 않은 플레이어가 2명 이상이라면
         {
-            for (int z = 0; z < 7; z++)
+            CoinCount coinCount = FindObjectOfType<CoinCount>(); // CoinCount 인스턴스 찾기
+            if (coinCount == null)
             {
-                int value = carpetArrangement.whosground[x, z];
-                if (value != 0)
+                Debug.LogError("CoinCount 객체를 찾을 수 없습니다!");
+                return;
+            }
+
+            int[] coins = coinCount.coin; // CoinCount의 coin 배열 직접 참조
+            int[] sortedIndexes = new int[remainingPlayers]; // 정렬할 플레이어 인덱스 배열
+            int index = 0;
+
+            // 3. 아직 순위가 정해지지 않은 플레이어들의 인덱스를 배열에 저장
+            for (int i = 0; i < Rank.Length; i++)
+            {
+                if (Rank[i] == 0)
                 {
-                    int playerIndex = value % 10; // 1의 자리 값이 플레이어 인덱스
-                    if (playerIndex >= 0 && playerIndex < 4)
+                    sortedIndexes[index] = i;
+                    index++;
+                }
+            }
+
+            // 4. 버블 정렬을 사용해 코인 개수를 기준으로 내림차순 정렬
+            for (int i = 0; i < remainingPlayers - 1; i++)
+            {
+                for (int j = 0; j < remainingPlayers - 1 - i; j++)
+                {
+                    if (coins[sortedIndexes[j]] < coins[sortedIndexes[j + 1]])
                     {
-                        Score[playerIndex] += 1; // 해당 플레이어 점수 증가
+                        // 두 값을 스왑
+                        int temp = sortedIndexes[j];
+                        sortedIndexes[j] = sortedIndexes[j + 1];
+                        sortedIndexes[j + 1] = temp;
                     }
                 }
             }
-        }
 
-        // 최종 점수 출력
-        Debug.Log($"P1: {Score[0]}, P2: {Score[1]}, P3: {Score[2]}, P4: {Score[3]}");
+            // 5. 정렬된 순서대로 높은 등수부터 배정 (1등부터 채우는 게 아니라, 가장 높은 Rank부터 채우기)
+            int rankValue = Rank.Length - remainingPlayers + 1; // 1등이 아닌, Rank 배열의 남은 부분부터 채움
+            for (int i = 0; i < remainingPlayers; i++)
+            {
+                Rank[sortedIndexes[i]] = rankValue;
+                rankValue++;
+            }
+        }
     }
 }
