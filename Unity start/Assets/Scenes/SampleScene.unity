@@ -1524,6 +1524,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carpetArrangement: {fileID: 1253505708}
+  turnPhase: {fileID: 492016176}
+  isBankrupt: 00000000
 --- !u!4 &381596738
 Transform:
   m_ObjectHideFlags: 0
@@ -2180,7 +2182,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b7bfa01963428f49b72f802da122914, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinCount: {fileID: 381596737}
+  CurrentState: 0
+  CurrentPlayerIndex: 0
   TotalPlayers: 4
+  PlayerCheck: 
 --- !u!4 &492016177
 Transform:
   m_ObjectHideFlags: 0
@@ -4988,7 +4994,7 @@ MonoBehaviour:
   - {fileID: 732793262}
   - {fileID: 732793262}
   - {fileID: 732793262}
-  currentPlayerIndex: 0
+  turnPhase: {fileID: 492016176}
   playerArrangements: 00000000
   turnUI: {fileID: 1732102604}
   Carpet1_Player1: {fileID: 3087150211312123824, guid: 1a456bbf02433bd489ce1d57a6e5dbfe, type: 3}

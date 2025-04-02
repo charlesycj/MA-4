@@ -5,10 +5,11 @@ using UnityEngine;
 public class CoinCount : MonoBehaviour
 {
     public CarpetArrangement carpetArrangement;
+    public TurnPhase turnPhase;
     private int gridSize = 7;
     
     private int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
-    
+    public bool[] isBankrupt = new bool[4]; //각 플레이어의 파산 여부
   
 
     void Start()
@@ -74,27 +75,58 @@ public class CoinCount : MonoBehaviour
 
     private void GiveCoins(int playerNumber, int amount)
     {
-        int currentPlayer = carpetArrangement.currentPlayerIndex;
+        int currentPlayer = turnPhase.CurrentPlayerIndex;
 
-        // 현재 플레이어가 코인을 지급
-        switch (currentPlayer)
+        // 밟은 카펫의 주인이 현재 플레이어와 같다면 실행하지 않음
+        if (playerNumber == currentPlayer)
         {
-            case 0: coin[0] -= amount; break;
-            case 1: coin[1] -= amount; break;
-            case 2: coin[2] -= amount; break;
-            case 3: coin[3] -= amount; break;
+            Debug.Log($"플레이어P{currentPlayer + 1}은(는) 자신의 카펫을 밟았으므로 코인을 지급하지 않습니다.");
+            return;
         }
 
-        // 코인을 받는 플레이어
-        switch (playerNumber)
+        // 이미 파산한 플레이어라면 아무 일도 하지 않음
+        if (isBankrupt[currentPlayer])
         {
-            case 0: coin[0] += amount; break;
-            case 1: coin[1] += amount; break;
-            case 2: coin[2] += amount; break;
-            case 3: coin[3] += amount; break;
+            Debug.Log($"플레이어P{currentPlayer + 1}은(는) 이미 파산하여 코인을 지급할 수 없습니다.");
+            return;
         }
 
-        Debug.Log($"플레이어P{currentPlayer + 1} → 플레이어P{playerNumber + 1}에게 {amount}코인 지급");
+        // 현재 플레이어가 코인을 지급해야 하는데, 코인이 부족한 경우
+        int payment = amount;
+        if (coin[currentPlayer] < amount)
+        {
+            payment = coin[currentPlayer]; // 가진 코인만큼만 지급
+            isBankrupt[currentPlayer] = true; // 파산 처리
+            Debug.Log($"플레이어P{currentPlayer + 1} 파산! 남은 {payment}코인만 지급하고 게임에서 제외됩니다.");
+        }
+
+        // 현재 플레이어의 코인 차감
+        coin[currentPlayer] -= payment;
+
+        // 코인을 받는 플레이어 증가
+        coin[playerNumber] += payment;
+
+        Debug.Log($"플레이어P{currentPlayer + 1} → 플레이어P{playerNumber + 1}에게 {payment}코인 지급");
         Debug.Log($"플레이어P{currentPlayer + 1}의 현재 코인: {coin[currentPlayer]} | 플레이어P{playerNumber + 1}의 현재 코인: {coin[playerNumber]}");
+
+        // 파산한 경우 추가적인 게임 로직 처리 (예: 턴 스킵, 제거 등)
+        if (isBankrupt[currentPlayer])
+        {
+            HandleBankruptPlayer(currentPlayer);
+            carpetArrangement.RemoveAllCarpetsOfPlayer(currentPlayer);
+        }
+    }
+
+    private void HandleBankruptPlayer(int playerIndex)
+    {
+        Debug.Log($"플레이어P{playerIndex + 1}은(는) 파산하여 게임에서 더 이상 진행할 수 없습니다.");
+        
+        turnPhase.PlayerCheck[playerIndex] = true;
+        // 만약 현재 플레이어가 파산한 경우, 즉시 다음 턴으로 넘어감
+        if (playerIndex == turnPhase.CurrentPlayerIndex)
+        {
+            Debug.Log($"플레이어P{playerIndex + 1}의 턴을 건너뜁니다.");
+            turnPhase.NextTurn(); // 턴을 넘김
+        }
     }
 }
