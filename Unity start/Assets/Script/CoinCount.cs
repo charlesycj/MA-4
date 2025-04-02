@@ -8,7 +8,7 @@ public class CoinCount : MonoBehaviour
     public TurnPhase turnPhase;
     private int gridSize = 7;
     
-    private int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
+    public int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
     public bool[] isBankrupt = new bool[4]; //각 플레이어의 파산 여부
   
 
