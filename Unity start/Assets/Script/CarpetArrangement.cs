@@ -45,10 +45,20 @@ public class CarpetArrangement : MonoBehaviour
 
     public void Update()
     {
+        if (turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]==null)
+        {
+            turnPhase.GameOver();
+            return;
+        }
+
         if (turnPhase.PlayerCheck[turnPhase.CurrentPlayerIndex]!=false)
         {
-            turnPhase.SetState(PlayerState.RotatingOrRolling);
-            turnPhase.CurrentPlayerIndex+=1;
+            
+                turnPhase.SetState(PlayerState.RotatingOrRolling);
+                turnPhase.CurrentPlayerIndex+=1;
+            
+            
+          
         }
         if (TurnPhase.Instance.CurrentState != PlayerState.PlacingCarpet) return;
         // 현재 플레이어 차례인 경우만 진행
@@ -367,7 +377,7 @@ public class CarpetArrangement : MonoBehaviour
         {
             for (int z = 0; z < 7; z++)
             {
-                if (whosground[x, z] % 10 == (playerIndex + 1)) // 해당 플레이어가 깔았던 위치인지 확인
+                if (whosground[x, z] % 10 == (playerIndex)) // 해당 플레이어가 깔았던 위치인지 확인
                 {
                     whosground[x, z] = 0;
                     Debug.Log($"Cleared whosground[{x}, {z}]");

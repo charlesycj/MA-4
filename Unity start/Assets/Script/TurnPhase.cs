@@ -4,6 +4,7 @@ public enum PlayerState
 {
     RotatingOrRolling, // 회전 및 주사위 던지기 단계
     PlacingCarpet,     // 카펫 배치 단계
+    GameEnd
 }
 public class TurnPhase : MonoBehaviour
 {
@@ -51,6 +52,7 @@ public class TurnPhase : MonoBehaviour
         // 플레이어가 1명만 남으면 우승 처리 후 게임 종료
         if (alivePlayers == 1)
         {
+            GameOver();
             Debug.Log($"게임 종료! 플레이어 P{lastPlayerIndex + 1} 우승");
             return;
         }
@@ -63,5 +65,10 @@ public class TurnPhase : MonoBehaviour
 
         SetState(PlayerState.RotatingOrRolling);
         Debug.Log($"플레이어 {CurrentPlayerIndex + 1}의 턴 시작!");
+    }
+
+    public void GameOver()
+    {
+        
     }
 }
