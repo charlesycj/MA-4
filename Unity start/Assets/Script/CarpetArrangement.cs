@@ -324,9 +324,6 @@ public class CarpetArrangement : MonoBehaviour
         TurnPhase.Instance.NextTurn();
         // 새 플레이어는 카펫 배치 가능
         playerArrangements[turnPhase.CurrentPlayerIndex] = false;
-        
-        // 턴 UI 업데이트 호출
-        turnUI.NextTurn();
     }
    
     // 투명도를 설정하는 함수

@@ -4,47 +4,42 @@ using UnityEngine.UI;
 
 public class TurnUI : MonoBehaviour
 {
-    public RectTransform[] playerPanels; // 플레이어 UI 패널
-    public float moveDistance = 50f; // Y축 이동 거리
+    public static TurnUI Instance; // 싱글턴 인스턴스
+    public RectTransform[] playerPanels; // 각 플레이어 UI 패널
+    public float moveXDistance = 50f; // X축 이동 거리
     public float scaleMultiplier = 1.2f; // 크기 증가 비율
     public float moveDuration = 0.5f; // 이동 시간
-    
 
-    private int currentPlayerIndex = 0; // 현재 플레이어 인덱스
     private bool isAnimating = false; // 애니메이션 진행 중 여부
 
-    public CarpetArrangement carpetArrangement; // CarpetArrangement 스크립트 연결
-
-    private void Start()
+    private void Awake()
     {
-        UpdateTurn(currentPlayerIndex);
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(gameObject);
     }
 
-    public void NextTurn()
+    // 외부에서 호출할 함수 (TurnPhase에서 사용)
+    public void UpdateTurnUI(int playerIndex)
     {
-        if (isAnimating) return; // 애니메이션 중이면 턴 진행하지 않음
-        currentPlayerIndex = (currentPlayerIndex + 1) % playerPanels.Length;
-        UpdateTurn(currentPlayerIndex);
+        if (isAnimating) return; // 애니메이션 중이면 실행하지 않음
+        StartCoroutine(AnimateTurnUI(playerPanels[playerIndex]));
     }
 
-    private void UpdateTurn(int playerIndex)
+    private IEnumerator AnimateTurnUI(RectTransform panel)
     {
-        isAnimating = true; // 애니메이션 시작
-        StartCoroutine(MoveAndScale(playerPanels[playerIndex]));
-    }
-
-    private IEnumerator MoveAndScale(RectTransform panel)
-    {
-        
+        isAnimating = true; // 애니메이션 진행 중
 
         Vector2 originalPosition = panel.anchoredPosition;
-        Vector2 targetPosition = originalPosition + new Vector2(-moveDistance, 0); // X축 이동
+        Vector2 targetPosition = originalPosition + new Vector2(-moveXDistance, 0); // X축 이동
 
         Vector3 originalScale = panel.localScale;
         Vector3 targetScale = originalScale * scaleMultiplier;
 
         float elapsedTime = 0f;
 
+        // UI 패널 이동 및 확대 애니메이션
         while (elapsedTime < moveDuration)
         {
             float t = elapsedTime / moveDuration;
@@ -57,9 +52,11 @@ public class TurnUI : MonoBehaviour
         panel.anchoredPosition = targetPosition;
         panel.localScale = targetScale;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.5f); // 유지 시간
 
         elapsedTime = 0f;
+
+        // UI 패널 원래 크기 및 위치로 되돌리기
         while (elapsedTime < moveDuration)
         {
             float t = elapsedTime / moveDuration;
@@ -72,7 +69,6 @@ public class TurnUI : MonoBehaviour
         panel.anchoredPosition = originalPosition;
         panel.localScale = originalScale;
 
-        
         isAnimating = false; // 애니메이션 종료
     }
 }

@@ -8157,10 +8157,9 @@ MonoBehaviour:
   - {fileID: 1551523529}
   - {fileID: 1674927906}
   - {fileID: 1076696535}
-  moveDistance: 200
+  moveXDistance: 50
   scaleMultiplier: 1.2
   moveDuration: 0.5
-  carpetArrangement: {fileID: 1253505708}
 --- !u!4 &1732102605
 Transform:
   m_ObjectHideFlags: 0

@@ -32,6 +32,8 @@ public class TurnPhase : MonoBehaviour
     {
         PlayerCheck = new bool[TotalPlayers];  // 자동으로 false로 초기화됨
         GlobalTurn=1; 
+        
+        TurnUI.Instance.UpdateTurnUI(CurrentPlayerIndex);
     }
 
     public void SetState(PlayerState newState)
@@ -84,6 +86,9 @@ public class TurnPhase : MonoBehaviour
         
         SetState(PlayerState.RotatingOrRolling);
         Debug.Log($"플레이어 {CurrentPlayerIndex + 1}의 턴 시작!");
+        
+        
+        TurnUI.Instance.UpdateTurnUI(CurrentPlayerIndex);
     }
 
     public void GameOver()
