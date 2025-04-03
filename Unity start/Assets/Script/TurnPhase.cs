@@ -22,6 +22,7 @@ public class TurnPhase : MonoBehaviour
     public int[]Rank= new int[4];
     public int[]Score= new int[4];
     
+    
     private void Awake()
     {
         if (Instance == null)
@@ -105,18 +106,34 @@ public class TurnPhase : MonoBehaviour
         SetState(PlayerState.RotatingOrRolling);
         Debug.Log($"플레이어 {CurrentPlayerIndex + 1}의 턴 시작!");
         TurnUI.Instance.UpdateTurnUI(CurrentPlayerIndex);
-        // 점수 갱신
-        ScoreResult();
-        Debug.Log($"현재 순위 1위: P{Rank[0]}  2위: P{Rank[1]}  3위: P{Rank[2]}  4위: P{Rank[3]}");
+    
     }
     
     public void GameOver()
     {
         SetState(PlayerState.GameEnd);
         ScoreResult();
+        
+
+        UIManager uiManager = FindObjectOfType<UIManager>();
+        int winnerIndex = Rank[0] - 1; // Rank 배열은 1부터 시작하므로 인덱스 조정을 위해 -1
+
+        string winnerName = "P" + Rank[0]; // 플레이어 이름 (예: "P1")
+
+        int winnerScore = Score[winnerIndex]; // 플레이어 점수
+
+        if (uiManager != null)
+        {
+            uiManager.SetWinnerInfo(winnerName, winnerScore);
+            uiManager.EndGame(); // UIManager의 EndGame() 함수 호출
+        }
+        else
+        {
+            Debug.LogError("UIManager를 찾을 수 없습니다!");
+        }
         Debug.Log("게임 종료!");
         Debug.Log($"최종 순위 1위: P{Rank[0]}  2위: P{Rank[1]}  3위: P{Rank[2]}  4위: P{Rank[3]}");
-        }
+    }
 
     public void ScoreResult()
     {

@@ -7,7 +7,7 @@ public class CarpetArrangement : MonoBehaviour
     public bool[] playerArrangements = new bool[4]; // 각 플레이어가 카펫을 배치했는지 여부
     public TurnUI turnUI;
     public GameObject[][] carpetClones = new GameObject[4][]; // 각 플레이어의 카펫 클론
-
+    public ErrorAlarm errorAlarm;
     
     // 삭제용 태그 목록
     string[] carpetTags = { "CarpetP1", "CarpetP2", "CarpetP3", "CarpetP4" };
@@ -251,13 +251,15 @@ public class CarpetArrangement : MonoBehaviour
         // 설치 가능한 범위는 예시로 (0,7) 내부라고 가정 (즉, 1~6만 허용)
  
          if ((x0 < 0 || x0 >= 7 || z0 < 0 || z0 >= 7) || (x1 < 0 || x1 >= 7 || z1 < 0 || z1 >= 7))
-        {
+         {
+             errorAlarm.ShowError("Carpet cannot be installed out of range.");
             Debug.Log("카펫이 설치 범위를 벗어났습니다. 설치할 수 없습니다.");
             return;
         }
         // 이미 카펫이 설치되어 있다면 (두 좌표 모두 0이 아닌 값이며, 값이 같으면) 설치를 취소
         if (whosground[x0, z0] != -1 && whosground[x1, z1] != -1 && whosground[x0, z0] == whosground[x1, z1])
         {
+            errorAlarm.ShowError("It overlaps exactly with the existing carpet! Please install it somewhere else!");
             Debug.Log("기존에 설치된 카펫에 정확히 겹칩니다! 다른 곳에 설치해주세요!");
             return;
         }
@@ -329,6 +331,9 @@ public class CarpetArrangement : MonoBehaviour
         Debug.Log($"배열 {x0},{z0}와  {x1},{z1}를 {whosground[x0,z0]+1}로 변경");
         
         TurnPhase.Instance.NextTurn();
+        // 점수 갱신
+        turnPhase.ScoreResult();
+        Debug.Log($"현재 순위 1위: P{turnPhase.Rank[0]}  2위: P{turnPhase.Rank[1]}  3위: P{turnPhase.Rank[2]}  4위: P{turnPhase.Rank[3]}");
         // 새 플레이어는 카펫 배치 가능
         playerArrangements[turnPhase.CurrentPlayerIndex] = false;
     }

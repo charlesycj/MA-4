@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class TurnUI : MonoBehaviour
 {
@@ -9,8 +10,11 @@ public class TurnUI : MonoBehaviour
     public float moveXDistance = 50f; // X축 이동 거리
     public float scaleMultiplier = 1.2f; // 크기 증가 비율
     public float moveDuration = 0.5f; // 이동 시간
+    
+    public GameObject[] players; 
 
     private bool isAnimating = false; // 애니메이션 진행 중 여부
+    private int  currentPlayerIndex = 0;
 
     private void Awake()
     {
@@ -24,7 +28,28 @@ public class TurnUI : MonoBehaviour
     public void UpdateTurnUI(int playerIndex)
     {
         if (isAnimating) return; // 애니메이션 중이면 실행하지 않음
+
+        if (playerIndex < 0 || playerIndex >= players.Length)
+        {
+            Debug.LogError("Invalid player index: " + playerIndex);
+        }
+        
+        currentPlayerIndex = playerIndex;
+        ChangePlayer(playerIndex);
         StartCoroutine(AnimateTurnUI(playerPanels[playerIndex]));
+        
+    }
+
+    private void ChangePlayer(int playerIndex)
+    {
+        foreach (GameObject player in players)
+        {
+            player.SetActive(false);
+        }
+        
+        players[playerIndex].SetActive(true);
+        
+        Debug.Log("Changing player to: " +playerIndex);
     }
 
     private IEnumerator AnimateTurnUI(RectTransform panel)

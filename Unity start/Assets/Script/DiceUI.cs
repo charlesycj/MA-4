@@ -9,9 +9,10 @@ public class DiceUI : MonoBehaviour
     public Button rollButton;
     public Move characterMove;
     public AudioClip diceRollSound;
+    public TurnPhase turnPhase;
+    public AudioSource _audioSource;
     
     private Image Originimage;
-    public AudioSource _audioSource;
     bool isRolling = false;
     
     private void Awake()
@@ -48,7 +49,12 @@ public class DiceUI : MonoBehaviour
 
     private void RollDice()
     {
+        
         if (!isRolling) StartCoroutine(RollingDice());
+        // 점수 갱신
+        turnPhase.ScoreResult();
+        Debug.Log($"현재 순위 1위: P{turnPhase.Rank[0]}  2위: P{turnPhase.Rank[1]}  3위: P{turnPhase.Rank[2]}  4위: P{turnPhase.Rank[3]}");
+
     }
 
     private IEnumerator RollingDice()
