@@ -50,12 +50,16 @@ public class TurnPhase : MonoBehaviour
 
     public void NextTurn()
     {
+        
+        
         int Islive = 0;
         for (int i = 0; i < 4; i++)
         {
             if(PlayerCheck[i]!=false)
                 Islive++;
         }
+       
+        
         // 모든 플레이어가 차례를 마쳤다면 글로벌 턴 증가
         if (CurrentPlayerIndex >= 4 - Islive)
         {
@@ -96,11 +100,14 @@ public class TurnPhase : MonoBehaviour
             CurrentPlayerIndex = (CurrentPlayerIndex+1) % TotalPlayers;
         } while (coinCount.isBankrupt[CurrentPlayerIndex]); // 파산한 플레이어는 건너뜀
         
+       
+        
         SetState(PlayerState.RotatingOrRolling);
         Debug.Log($"플레이어 {CurrentPlayerIndex + 1}의 턴 시작!");
-        
-        
         TurnUI.Instance.UpdateTurnUI(CurrentPlayerIndex);
+        // 점수 갱신
+        ScoreResult();
+        Debug.Log($"현재 순위 1위: P{Rank[0]}  2위: P{Rank[1]}  3위: P{Rank[2]}  4위: P{Rank[3]}");
     }
     
     public void GameOver()
@@ -108,7 +115,7 @@ public class TurnPhase : MonoBehaviour
         SetState(PlayerState.GameEnd);
         ScoreResult();
         Debug.Log("게임 종료!");
-        
+        Debug.Log($"최종 순위 1위: P{Rank[0]}  2위: P{Rank[1]}  3위: P{Rank[2]}  4위: P{Rank[3]}");
         }
 
     public void ScoreResult()
@@ -119,12 +126,6 @@ public class TurnPhase : MonoBehaviour
         // 점수 계산 및 파산 여부 체크
         for (int i = 0; i < 4; i++)
         {
-            if (coinCount.isBankrupt[i]) 
-            {
-                isAlive[i] = false; // 파산한 플레이어는 순위 계산에서 제외
-                continue;
-            }
-
             int totalScore = 0;
 
             // whosground 배열을 검사하여 해당 플레이어가 놓은 카펫 개수 계산
@@ -170,6 +171,6 @@ public class TurnPhase : MonoBehaviour
             }
         }
 
-        Debug.Log($"최종 순위 1위: P{Rank[0]} 2위: P{Rank[1]} 3위: P{Rank[2]} 4위: P{Rank[3]}");
+       
     }
 }

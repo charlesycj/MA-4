@@ -10,7 +10,7 @@ public class CoinCount : MonoBehaviour
     
     public int[] coin ={ 1, 1, 1, 1 } ; //플레이어의 배열
     public bool[] isBankrupt = new bool[4]; //각 플레이어의 파산 여부
-
+    int bankruptCount = 0; //몇 번째 파산인지 추적
     void Start()
     {
         carpetArrangement = FindObjectOfType<CarpetArrangement>();
@@ -108,19 +108,18 @@ public class CoinCount : MonoBehaviour
 
         Debug.Log($"플레이어P{currentPlayer + 1} → 플레이어P{playerNumber + 1}에게 {payment}코인 지급");
         Debug.Log($"플레이어P{currentPlayer + 1}의 현재 코인: {coin[currentPlayer]} | 플레이어P{playerNumber + 1}의 현재 코인: {coin[playerNumber]}");
-
-        // 파산한 경우 추가적인 게임 로직 처리 (예: 턴 스킵, 제거 등)
+        
         if (isBankrupt[currentPlayer])
         {
-            // Rank 배열에서 첫 번째 비어 있는(0인) 위치를 찾아 플레이어 인덱스를 저장
-            for (int i = 0; i < turnPhase.Rank.Length; i++)
+            // 첫 번째 파산: -3, 두 번째 파산: -2, 세 번째 파산: -1
+            int[] bankruptCoinValues = { -3, -2, -1 };
+
+            if (bankruptCount < 3) 
             {
-                if (turnPhase.Rank[3-i] == -1)
-                {
-                    turnPhase.Rank[3-i] = currentPlayer + 1; // P1, P2, P3, P4 식으로 저장하기 위해 +1
-                    break;
-                }
+                coin[currentPlayer] = bankruptCoinValues[bankruptCount]; // 코인 값 변경
+                bankruptCount++; // 파산 횟수 증가
             }
+
             HandleBankruptPlayer(currentPlayer);
             carpetArrangement.RemoveAllCarpetsOfPlayer(currentPlayer);
         }
